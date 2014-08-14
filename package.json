@@ -1,0 +1,29 @@
+{
+	"author": "",
+	"name": "ianllewellyn",
+	"description": "",
+	"version": "0.0.0",
+	"homepage": "http://www.ianllewellyn.com",
+	"repository":
+	{
+		"type": "git",
+		"url": ""
+	},
+	"scripts":
+	{
+		"start": "brunch watch --server",
+		"build": "brunch build",
+		"release": "brunch build --production && zip -g -v js13k.zip public/*"
+	},
+	"dependencies":
+	{
+		"javascript-brunch": ">= 1.0 < 1.8",
+		"coffee-script-brunch": ">= 1.0 < 1.8",
+		"css-brunch": ">= 1.0 < 1.8",
+		"stylus-brunch": ">= 1.0 < 1.8",
+		"uglify-js-brunch": ">= 1.0 < 1.8",
+		"clean-css-brunch": ">= 1.0 < 1.8",
+		"auto-reload-brunch": ">= 1.0 < 1.8"
+	},
+	"devDependencies": {}
+}
