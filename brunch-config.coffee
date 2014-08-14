@@ -4,6 +4,10 @@ exports.config =
 		javascripts:
 			joinTo:
 				'js13k.js': /^(app|bower_components)/
+			order:
+				after: [
+					'app/js13k/app.js'
+				]
 		
 		stylesheets:
 			joinTo:
