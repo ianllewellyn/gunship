@@ -14,6 +14,7 @@
 	// currently pressed keys
 	_keys = {}
 	document.addEventListener('keydown', function(e){
+		// console.log(e.keyCode);
 		_keys[e.keyCode] = true;
 	});
 	document.addEventListener('keyup', function(e){
@@ -50,6 +51,11 @@
 		// a, left arrow
 		left: function(){
 			return _isDown([37, 65]);
+		},
+		
+		// space bar
+		fire: function(){
+			return _isDown([32]);
 		}
 	};
 })();

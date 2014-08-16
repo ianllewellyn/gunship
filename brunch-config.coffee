@@ -3,7 +3,7 @@ exports.config =
 	files:
 		javascripts:
 			joinTo:
-				'js13k.js': /^(app|bower_components)/
+				'js13k.js': /^(app|bower_components|vendor)/
 			order:
 				after: [
 					'app/js13k/app.js'

@@ -1,3 +1,7 @@
+// Floaty glowing spots in the foreground kinda like the chemical
+// brothers video with the glowing face.. Could be some nice depth
+// effects. Depth would be good to investigate with the game anyway.
+
 (function(){
 	
 	// Initialize is passed an array of game assets. Add
@@ -35,7 +39,7 @@
 		initialize: initialize,
 		update: update,
 		draw: draw,
-		fps: 60
+		fps: 30
 	});
 	gameLoop.start();
 	

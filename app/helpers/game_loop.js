@@ -27,6 +27,9 @@
 			this.lastFrame = this.startTime;
 			self = this;
 			self.initialize(this.assets);
+			
+			//TODO: Use requestAnimationFrame() here instead
+			// https://github.com/ooflorent/js13k-boilerplate/blob/master/src/raf.js
 			setInterval(function(){
 				var now = new Date().getTime();
 				self.frameTime = frameTime = now-self.lastFrame;
