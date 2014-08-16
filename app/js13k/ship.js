@@ -1,5 +1,7 @@
 (function(){
 	
+	var FULL_CIRCLE = 2*Math.PI;
+	
 	// Helper function for drawing circles
 	var drawCircle = function(ctx, x, y, r){
 		ctx.beginPath();
@@ -47,6 +49,14 @@
 		this.update = function(frameTime){
 			var speed = this.speed;
 			var delta = speed*(frameTime/10);
+			
+			// Update the roter rotation value by multiplying the delta
+			this._rotation -= (FULL_CIRCLE/50)*delta;
+			if(this._rotation < -FULL_CIRCLE){
+				this._rotation += FULL_CIRCLE;
+			}
+			// console.log(this._rotation);
+			
 			if(Input.up()){
 				this.y -= delta;
 			}
@@ -122,17 +132,36 @@
 			this.drawRoter(ctx);
 		}
 		
+		this._rotation = 0;
+		
 		this.drawRoter = function(ctx){
 			var x = this.x;
 			var y = this.y+38;
 			
-			drawCircle(ctx, x, y, 60);
-			ctx.stroke();
-			
 			drawCircle(ctx, x, y, 2);
 			ctx.stroke();
 			
-			drawCircle(ctx, x, y, 12);
+			// Inner blade trail
+			
+			ctx.beginPath();
+			ctx.arc(x, y, 12, this._rotation+((FULL_CIRCLE/4)*3), this._rotation+((FULL_CIRCLE/4)*3)+(FULL_CIRCLE/5));
+			ctx.stroke();
+			
+			ctx.beginPath();
+			ctx.arc(x, y, 12, this._rotation+(FULL_CIRCLE/4), this._rotation+(FULL_CIRCLE/4)+(FULL_CIRCLE)/5);
+			ctx.stroke();
+			
+			// Outer blade trail
+			
+			ctx.lineWidth = 1;
+			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
+			
+			ctx.beginPath();
+			ctx.arc(x, y, 65, this._rotation, this._rotation+(FULL_CIRCLE/5));
+			ctx.stroke();
+			
+			ctx.beginPath();
+			ctx.arc(x, y, 65, this._rotation+(FULL_CIRCLE/2), this._rotation+(FULL_CIRCLE/2)+(FULL_CIRCLE)/5);
 			ctx.stroke();
 		}
 		
@@ -140,4 +169,4 @@
 			effects.play('gun');
 		}
 	}
-})();
+})()
