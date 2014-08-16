@@ -9,13 +9,17 @@
 	// each frame.
 	var initialize = function(assets){
 		assets.push(new Background({
-			width: gameLoop.width,
-			height: gameLoop.height
+			width: game.width,
+			height: game.height
 		}));
 		assets.push(new FrameTimer());
 		assets.push(new Ship({
-			x: gameLoop.width/2,
-			y: gameLoop.height-135
+			x: game.width/2,
+			y: game.height-135,
+			bounds: {
+				left: 0,
+				right: game.width
+			}
 		}));
 	}
 	
@@ -26,12 +30,12 @@
 	var draw = function(ctx){}
 	
 	// Start the game loop
-	var gameLoop = new GameLoop({
+	var game = new GameLoop({
 		canvas: $('#canvas'),
 		initialize: initialize,
 		update: update,
 		draw: draw
 	});
-	gameLoop.start();
+	game.start();
 	
 })();

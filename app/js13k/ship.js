@@ -1,12 +1,28 @@
 (function(){
 	
 	var FULL_CIRCLE = 2*Math.PI;
+	var HALF_CIRCLE = FULL_CIRCLE/2;
+	var QUARTER_CIRCLE = FULL_CIRCLE/4;
+	var FIFTH_CIRCLE = FULL_CIRCLE/5;
+	
+	// Drawing positions don't change so calculate them once up front
+	var INNER_ROTOR_1_POS = (QUARTER_CIRCLE * 3);
+	var INNER_ROTOR_2_POS = QUARTER_CIRCLE;
+	var OUTER_ROTOR_1_POS = 0;
+	var OUTER_ROTOR_2_POS = HALF_CIRCLE;
 	
 	// Helper function for drawing circles
 	var drawCircle = function(ctx, x, y, r){
 		ctx.beginPath();
 		ctx.arc(x, y, r, 0, 2*Math.PI);
-		ctx.closePath();
+		ctx.stroke();
+	}
+	
+	// Helper function for drawing arcs
+	var drawArc = function(ctx, x, y, rotation, start, end){
+		ctx.beginPath();
+		ctx.arc(x, y, rotation, start, end);
+		ctx.stroke();
 	}
 	
 	// Helper method to draw a shape from an array of points
@@ -40,7 +56,20 @@
 		options = options || {};
 		this.x = options.x || 0;
 		this.y = options.y || 0;
+		if(options.bounds){
+			bounds = {
+				left: options.bounds.left+8,
+				right: options.bounds.right-8
+			}
+		}else{
+			bounds = {
+				left: 0,
+				right: 0
+			}
+		}
+		this._bounds = bounds;
 		
+		this._rotation = 0;
 		this._acceleration = 0.3;
 		this._maxSpeed = 5;
 		this._motion = 0;
@@ -58,6 +87,7 @@
 			var motion = this._motion;
 			var rotation = this._rotation;
 			var lastFired = this._lastFired;
+			var bounds = this._bounds;
 			
 			// Update the roter rotation value by multiplying the delta
 			rotation -= (FULL_CIRCLE/50)*delta;
@@ -81,6 +111,11 @@
 			if(moving){
 				motion = Math.max(-maxSpeed, Math.min(maxSpeed, motion));
 			}else{
+				
+				//TODO: If the helicopter is moved to the edge of it's bounds then push it away
+				// if we're not actively moving into it.
+				
+				
 				if(motion > drag){
 					motion -= drag;
 				}else if(motion < -drag){
@@ -90,8 +125,7 @@
 				}
 			}
 			
-			//TODO: If no direction keys are pressed then slow down
-			this.x += motion;
+			this.x = Math.max(bounds.left, Math.min(bounds.right, this.x + motion));
 			this._motion = motion;
 			
 			// Should we trigger a fire?
@@ -158,37 +192,27 @@
 			this.drawRoter(ctx);
 		}
 		
-		this._rotation = 0;
-		
 		this.drawRoter = function(ctx){
 			var x = this.x;
-			var y = this.y+38;
+			var y = this.y+40;
+			var rotation = this._rotation;
 			
+			// Apply the rotation value to the rotor line positions
+			var innerRotor1Pos = INNER_ROTOR_1_POS + rotation;
+			var innerRotor2Pos = INNER_ROTOR_2_POS + rotation;
+			var outerRotor1Pos = OUTER_ROTOR_1_POS + rotation;
+			var outerRotor2Pos = OUTER_ROTOR_2_POS + rotation;
+			
+			// Central hub
 			drawCircle(ctx, x, y, 2);
-			ctx.stroke();
 			
 			// Inner blade trail
-			
-			ctx.beginPath();
-			ctx.arc(x, y, 12, this._rotation+((FULL_CIRCLE/4)*3), this._rotation+((FULL_CIRCLE/4)*3)+(FULL_CIRCLE/5));
-			ctx.stroke();
-			
-			ctx.beginPath();
-			ctx.arc(x, y, 12, this._rotation+(FULL_CIRCLE/4), this._rotation+(FULL_CIRCLE/4)+(FULL_CIRCLE)/5);
-			ctx.stroke();
+			drawArc(ctx, x, y, 11, innerRotor1Pos, innerRotor1Pos + FIFTH_CIRCLE);
+			drawArc(ctx, x, y, 13, innerRotor2Pos, innerRotor2Pos + FIFTH_CIRCLE);
 			
 			// Outer blade trail
-			
-			ctx.lineWidth = 1;
-			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-			
-			ctx.beginPath();
-			ctx.arc(x, y, 65, this._rotation, this._rotation+(FULL_CIRCLE/5));
-			ctx.stroke();
-			
-			ctx.beginPath();
-			ctx.arc(x, y, 65, this._rotation+(FULL_CIRCLE/2), this._rotation+(FULL_CIRCLE/2)+(FULL_CIRCLE)/5);
-			ctx.stroke();
+			drawArc(ctx, x, y, 55, outerRotor1Pos, outerRotor1Pos + FIFTH_CIRCLE);
+			drawArc(ctx, x, y, 60, outerRotor2Pos, outerRotor2Pos + FIFTH_CIRCLE);
 		}
 		
 		this.fire = function(){
