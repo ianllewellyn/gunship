@@ -15,7 +15,7 @@
 		assets.push(new FrameTimer());
 		assets.push(new Ship({
 			x: gameLoop.width/2,
-			y: gameLoop.height/2
+			y: gameLoop.height-150
 		}));
 	}
 	
