@@ -40,42 +40,68 @@
 		options = options || {};
 		this.x = options.x || 0;
 		this.y = options.y || 0;
-		this.speed = options.speed || 1;
+		
+		this._acceleration = 0.3;
+		this._maxSpeed = 5;
+		this._motion = 0;
+		this._drag = 0.1;
 		
 		// Privates
 		this._lastFired = 0;
 		
 		// Update the position of the ship based on frameTime
 		this.update = function(frameTime){
-			var speed = this.speed;
-			var delta = speed*(frameTime/10);
+			var delta = frameTime/10;
+			var acceleration = this._acceleration*delta;
+			var drag = this._drag*delta;
+			var maxSpeed = this._maxSpeed;
+			var motion = this._motion;
+			var rotation = this._rotation;
+			var lastFired = this._lastFired;
 			
 			// Update the roter rotation value by multiplying the delta
-			this._rotation -= (FULL_CIRCLE/50)*delta;
-			if(this._rotation < -FULL_CIRCLE){
-				this._rotation += FULL_CIRCLE;
+			rotation -= (FULL_CIRCLE/50)*delta;
+			if(rotation < -FULL_CIRCLE){
+				rotation += FULL_CIRCLE;
 			}
-			// console.log(this._rotation);
+			this._rotation = rotation;
 			
-			if(Input.up()){
-				this.y -= delta;
-			}
+			// Capture movement inputs
+			var moving = false;
 			if(Input.right()){
-				this.x += delta;
-			}
-			if(Input.down()){
-				this.y += delta;
+				motion += acceleration;
+				moving = true;
 			}
 			if(Input.left()){
-				this.x -= delta;
+				motion -= acceleration;
+				moving = true;
 			}
 			
-			this._lastFired += frameTime;
-			if(Input.fire()){
-				if(this._lastFired > 100){
-					this.fire();
-					this._lastFired = 0;
+			// Apply drag
+			if(moving){
+				motion = Math.max(-maxSpeed, Math.min(maxSpeed, motion));
+			}else{
+				if(motion > drag){
+					motion -= drag;
+				}else if(motion < -drag){
+					motion += drag;
+				}else{
+					motion = 0;
 				}
+			}
+			
+			//TODO: If no direction keys are pressed then slow down
+			this.x += motion;
+			this._motion = motion;
+			
+			// Should we trigger a fire?
+			lastFired += frameTime;
+			if(Input.fire()){
+				if(lastFired > 90){
+					this.fire();
+					lastFired = 0;
+				}
+				this._lastFired = lastFired;
 			}
 		}
 		
