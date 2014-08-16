@@ -8,10 +8,10 @@
 	// A simple game loop
 	//
 	// {
-	// 		update: function(frameTime){}
-	// 		draw: function(frameTime){}
-	// 		fps: 30
 	// 		canvas: Canvas
+	// 		initialize: function(assets){}
+	// 		update: function(frameTime){}
+	// 		draw: function(ctx){}
 	// }
 	window.GameLoop = function(options){
 		
@@ -19,7 +19,6 @@
 		this.initialize = options.initialize || function(){}
 		this.update = options.update || function(){};
 		this.draw = options.draw || function(){};
-		this.fps = options.fps || 30;
 		this.canvas = options.canvas;
 		this.ctx = this.canvas.getContext('2d');
 		this.width = this.canvas.width;
@@ -39,8 +38,7 @@
 		// Draw a frame of the game. Update all assets then draw them.
 		this._drawFrame = function(){
 			var now = time();
-			self.frameTime = frameTime = now-self._lastFrame;
-			self.frameRate = Math.floor(1000/self.frameTime);
+			frameTime = now-self._lastFrame;
 			self._lastFrame = now;
 			
 			// Update each of the assets then call the update callback.

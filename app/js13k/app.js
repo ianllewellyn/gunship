@@ -12,6 +12,7 @@
 			width: gameLoop.width,
 			height: gameLoop.height
 		}));
+		assets.push(new FrameTimer());
 		assets.push(new Ship({
 			x: gameLoop.width/2,
 			y: gameLoop.height/2
@@ -22,24 +23,14 @@
 	var update = function(frameTime){}
 	
 	// Draw anything in addition to registered assets
-	var draw = function(ctx){
-		drawFrameTime(ctx);
-	}
-	
-	// Draw the frame time counter
-	var drawFrameTime = function(ctx){
-		ctx.fillStyle = '#fff';
-		ctx.font = '12px Arial';
-		ctx.fillText(gameLoop.frameRate+' fps', 2, 12);
-	}
+	var draw = function(ctx){}
 	
 	// Start the game loop
 	var gameLoop = new GameLoop({
 		canvas: $('#canvas'),
 		initialize: initialize,
 		update: update,
-		draw: draw,
-		fps: 30
+		draw: draw
 	});
 	gameLoop.start();
 	
