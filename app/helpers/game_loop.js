@@ -15,7 +15,7 @@
 	// }
 	window.GameLoop = function(options){
 		
-		// Store options we want
+		// Pick what we want from options passed in
 		this.initialize = options.initialize || function(){}
 		this.update = options.update || function(){};
 		this.draw = options.draw || function(){};
@@ -26,12 +26,12 @@
 		this.height = this.canvas.height;
 		this.assets = [];
 		
-		self = this;
+		var self = this;
 		
 		// Start the game loop
 		// Initialize the game and draw the initial frame.
 		this.start = function(){
-			self.lastFrame = time();
+			self._lastFrame = time();
 			self.initialize(self.assets);
 			self._drawFrame();
 		}
@@ -39,9 +39,9 @@
 		// Draw a frame of the game. Update all assets then draw them.
 		this._drawFrame = function(){
 			var now = time();
-			self.frameTime = frameTime = now-self.lastFrame;
+			self.frameTime = frameTime = now-self._lastFrame;
 			self.frameRate = Math.floor(1000/self.frameTime);
-			self.lastFrame = now;
+			self._lastFrame = now;
 			
 			// Update each of the assets then call the update callback.
 			// frameTime is passed into the update call so assets know how long
@@ -55,7 +55,6 @@
 			self.update(frameTime);
 			
 			// Clear the canvas before calling draw() on each asset
-			// followed by the draw callback
 			self.ctx.clearRect(0, 0, 400, 400);
 			self.assets.forEach(function(asset){
 				if(asset.draw){
