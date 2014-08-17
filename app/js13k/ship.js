@@ -11,38 +11,6 @@
 	var OUTER_ROTOR_1_POS = 0;
 	var OUTER_ROTOR_2_POS = HALF_CIRCLE;
 	
-	// Helper function for drawing circles
-	var drawCircle = function(ctx, x, y, r){
-		ctx.beginPath();
-		ctx.arc(x, y, r, 0, 2*Math.PI);
-		ctx.stroke();
-	}
-	
-	// Helper function for drawing arcs
-	var drawArc = function(ctx, x, y, rotation, start, end){
-		ctx.beginPath();
-		ctx.arc(x, y, rotation, start, end);
-		ctx.stroke();
-	}
-	
-	// Helper method to draw a shape from an array of points
-	var drawShape = function(ctx, points, tx){
-		ctx.beginPath();
-		ctx.moveTo(tx.x+points[0][0], tx.y+points[0][1]);
-		
-		// Each half, first the supplied path, then run through the points
-		// again backwards and draw a mirror.
-		for(var i=1; i<points.length; ++i){
-			ctx.lineTo(tx.x+points[i][0], tx.y+points[i][1]);
-		}
-		for(var i=points.length-1; i>-1; --i){
-			ctx.lineTo(tx.x+(-points[i][0]), tx.y+points[i][1]);
-		}
-		
-		// Apply line styles
-		ctx.closePath();
-	}
-	
 	// http://github.grumdrig.com/jsfxr/
 	// http://www.superflashbros.net/as3sfxr/
 	
@@ -56,80 +24,25 @@
 		options = options || {};
 		this.x = options.x || 0;
 		this.y = options.y || 0;
-		if(options.bounds){
-			bounds = {
-				left: options.bounds.left+8,
-				right: options.bounds.right-8
-			}
-		}else{
-			bounds = {
-				left: 0,
-				right: 0
-			}
-		}
-		this._bounds = bounds;
+		this._bounds = options.bounds || {left: 0, right: 0};
 		
 		this._rotation = 0;
-		this._acceleration = 0.3;
+		this._acceleration = 0.2;
 		this._maxSpeed = 5;
 		this._motion = 0;
-		this._drag = 0.1;
-		
-		// Privates
+		this._drag = 0.01;
 		this._lastFired = 0;
 		
 		// Update the position of the ship based on frameTime
 		this.update = function(frameTime){
-			var delta = frameTime/10;
-			var acceleration = this._acceleration*delta;
-			var drag = this._drag*delta;
-			var maxSpeed = this._maxSpeed;
-			var motion = this._motion;
-			var rotation = this._rotation;
+			var delta = (1/17)*frameTime;
+			this.updateRotor(delta);
+			this.updateMovement(delta);
+			
+			// Should we fire?
 			var lastFired = this._lastFired;
-			var bounds = this._bounds;
-			
-			// Update the roter rotation value by multiplying the delta
-			rotation -= (FULL_CIRCLE/50)*delta;
-			if(rotation < -FULL_CIRCLE){
-				rotation += FULL_CIRCLE;
-			}
-			this._rotation = rotation;
-			
-			// Capture movement inputs
-			var moving = false;
-			if(Input.right()){
-				motion += acceleration;
-				moving = true;
-			}
-			if(Input.left()){
-				motion -= acceleration;
-				moving = true;
-			}
-			
-			// Apply drag
-			if(moving){
-				motion = Math.max(-maxSpeed, Math.min(maxSpeed, motion));
-			}else{
-				
-				//TODO: If the helicopter is moved to the edge of it's bounds then push it away
-				// if we're not actively moving into it.
-				
-				
-				if(motion > drag){
-					motion -= drag;
-				}else if(motion < -drag){
-					motion += drag;
-				}else{
-					motion = 0;
-				}
-			}
-			
-			this.x = Math.max(bounds.left, Math.min(bounds.right, this.x + motion));
-			this._motion = motion;
-			
-			// Should we trigger a fire?
 			lastFired += frameTime;
+			// console.log(lastFired);
 			if(Input.fire()){
 				if(lastFired > 90){
 					this.fire();
@@ -137,6 +50,70 @@
 				}
 				this._lastFired = lastFired;
 			}
+		}
+		
+		this.updateRotor = function(delta){
+			var rotation = this._rotation;
+			rotation -= (FULL_CIRCLE/30) * delta;
+			if(rotation < -FULL_CIRCLE){
+				rotation += FULL_CIRCLE;
+			}
+			this._rotation = rotation;
+		}
+		
+		this.updateMovement = function(delta){
+			var acceleration = this._acceleration * delta;
+			var drag = this._drag * delta;
+			var maxSpeed = this._maxSpeed * delta;
+			
+			var motion = this._motion * delta;
+			var bounds = this._bounds;
+			
+			// Capture movement inputs
+			var userInput = false;
+			if(Input.right()){
+				motion += acceleration;
+				userInput = true;
+			}
+			if(Input.left()){
+				motion -= acceleration;
+				userInput = true;
+			}
+			
+			// Limmit the max speed
+			motion = Math.max(-maxSpeed, Math.min(maxSpeed, motion));
+			
+			// Apply drag if we're not actively moving
+			var stoppedByDrag = false;
+			if(!userInput){
+				if(motion > drag){
+					motion -= drag;
+				}else if(motion < -drag){
+					motion += drag;
+				}else{
+					stoppedByDrag = true;
+				}
+			}
+			
+			// Calculate the new x position while respecting bounds
+			var newX = this.x + (motion * delta);
+			if(newX > bounds.right){
+				motion = 0;
+				newX = bounds.right;
+			}else if(newX < bounds.left){
+				motion = 0;
+				newX = bounds.left;
+			}
+			
+			// Update the x position
+			this.x = newX;
+			
+			// If we've been stopped by drag taking us to zero
+			// then set motion to zero after x has been updated.
+			if(stoppedByDrag) motion = 0;
+			
+			// Store the current motion for next time
+			this._motion = motion;
 		}
 		
 		// Draw the ship
@@ -186,8 +163,7 @@
 			], {
 				x: x,
 				y: y
-			});
-			ctx.stroke();
+			}, true);
 			
 			this.drawRoter(ctx);
 		}
