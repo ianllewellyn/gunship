@@ -80,6 +80,9 @@
 				userInput = true;
 			}
 			
+			// When we are drifting and there is a long frame the speed
+			// is artificially boosted so the drift carries on too long.
+			
 			// Limmit the max speed
 			motion = Math.max(-maxSpeed, Math.min(maxSpeed, motion));
 			
