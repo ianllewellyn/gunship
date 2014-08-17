@@ -109,14 +109,14 @@
 			this.x = newX;
 			
 			// If we've been stopped by drag taking us to zero
-			// then set motion to zero after x has been updated.
+			// then set motion to zero AFTER x has been updated.
 			if(stoppedByDrag) motion = 0;
 			
 			// Store the current motion for next time
 			this._motion = motion;
 		}
 		
-		// Draw the ship
+		// Draw the helicopter
 		this.draw = function(ctx){
 			var x = this.x;
 			var y = this.y;
