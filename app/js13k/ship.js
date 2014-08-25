@@ -11,9 +11,13 @@
 	var OUTER_ROTOR_1_POS = 0;
 	var OUTER_ROTOR_2_POS = HALF_CIRCLE;
 	
+	// Cannon settings
+	var BURST_LENGTH = 3;
+	var ROUND_DELAY = 90;
+	var BURST_DELAY = (BURST_LENGTH * ROUND_DELAY) + 540;
+	
 	// http://github.grumdrig.com/jsfxr/
 	// http://www.superflashbros.net/as3sfxr/
-	
 	var effects = window.Effects;
 	effects.add('gun', 5, [
 		[0,,0.22,1,0.08,0.31,0.11,-0.4399,-0.76,,,-0.7,0.27,0.74,-0.3199,,,-0.0444,1,,,,,0.5],
@@ -34,6 +38,8 @@
 		self._motion = 0;
 		self._drag = 0.05;
 		self._lastFired = 0;
+		self._lastBurst = 0;
+		self._burst = 0;
 		self._bulletX = undefined;
 		self._bulletY = undefined;
 		
@@ -44,16 +50,29 @@
 			self.updateMovement(delta);
 			self.updateGun(delta);
 			
-			// Should we fire?
-			var lastFired = self._lastFired;
-			lastFired += frameTime;
-			if(Input.fire()){
-				if(lastFired > 90){
-					self.fire();
-					lastFired = 0;
-				}
-				self._lastFired = lastFired;
+			var lastFired = self._lastFired + frameTime;
+			var lastBurst = self._lastBurst + frameTime;
+			var burst = self._burst;
+			
+			// If the user has pressed fire then start a burst
+			if(Input.fire() && burst < 1 && lastBurst > BURST_DELAY){
+				burst = BURST_LENGTH;
+				lastBurst = 0;
 			}
+			
+			// If there is one or more rounds in the burst then
+			// fire a new one if we have waited long enough between
+			// rounds.
+			if(self._burst > 0 && lastFired > ROUND_DELAY){
+				self.fire();
+				--burst;
+				lastFired = 0;
+			}
+			
+			// Store the values for next time
+			self._lastFired = lastFired;
+			self._lastBurst = lastBurst;
+			self._burst = burst;
 		}
 		
 		self.updateGun = function(delta){

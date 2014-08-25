@@ -7,7 +7,8 @@
 		var angle = self.angle = options.angle;
 		
 		// Calculate the cos and sin values once up front based on the
-		// initial angle.
+		// initial angle. The angle wont change here once created so no
+		// need to re-calculate each update.
 		self._cos = Math.cos(angle);
 		self._sin = -Math.sin(angle);
 		

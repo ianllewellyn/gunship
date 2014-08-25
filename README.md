@@ -2,7 +2,6 @@
 
 # TODO
 
-* Fire cannon in three shot bursts
 * Add random spread to cannon rounds
 * Stop hardcoding the canvas size in the bullets
 * Slow the cannon rounds as they travel
