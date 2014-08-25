@@ -250,9 +250,10 @@
 				x: self._bulletX,
 				y: self._bulletY,
 				speed: 10,
-				speedVariation: 2,
+				speedVariation: 1,
 				angle: cannonAngle,
-				angleVariation: 0.08
+				// angleVariation: 0.08
+				angleVariation: 0.1
 			}));
 		}
 	}

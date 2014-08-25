@@ -38,8 +38,8 @@
 		canvas: $('#canvas'),
 		initialize: initialize,
 		update: update,
-		draw: draw/*,
-		fps: 30*/
+		draw: draw
+		// ,fps: 30
 	});
 	game.start();
 })();

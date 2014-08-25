@@ -5,7 +5,7 @@
 		self.x = options.x;
 		self.y = options.y;
 		self.speedVariation = options.speedVariation || 0;
-		self.angleVariation = options.angleVariation || 0
+		self.angleVariation = options.angleVariation || 0;
 		
 		// Add the angle variation
 		var angleAdjust = (Math.random() * self.angleVariation) - (self.angleVariation / 2);
@@ -22,13 +22,15 @@
 		self._sin = -Math.sin(angle);
 		
 		self.update = function(frameTime, delta){
+			self.speed -= 0.05;
+			var speed = self.speed * delta;
 			
 			// Update origin based on the angle
-			var x = self.x += self.speed * self._cos;
-			var y = self.y += self.speed * self._sin;
+			var x = self.x += speed * self._cos;
+			var y = self.y += speed * self._sin;
 			
 			// Remove from the assetList if we're off screen
-			if(x < 0 || x > 500 || y < 0 || y > 550){
+			if(x < 0 || x > 500 || y < 0 || y > 630){
 				self.assetList.remove(self);
 			}
 		}
@@ -36,7 +38,6 @@
 		self.draw = function(ctx){
 			var x = self.x;
 			var y = self.y;
-			// var speed = self.speed;
 			
 			ctx.lineWidth = 1;
 			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
