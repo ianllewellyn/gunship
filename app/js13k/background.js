@@ -12,12 +12,12 @@
 			ctx.fillRect(0, 0, self.width, self.height);
 			
 			//REMOVE: Draw the bounds lines
-			ctx.beginPath();
-			ctx.moveTo(20, 0);
-			ctx.lineTo(20, self.height);
-			ctx.moveTo(self.width-20, 0);
-			ctx.lineTo(self.width-20, self.height);
-			ctx.stroke();
+			// ctx.beginPath();
+			// ctx.moveTo(20, 0);
+			// ctx.lineTo(20, self.height);
+			// ctx.moveTo(self.width-20, 0);
+			// ctx.lineTo(self.width-20, self.height);
+			// ctx.stroke();
 		}
 	}
 })();
