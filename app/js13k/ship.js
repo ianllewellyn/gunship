@@ -60,7 +60,7 @@
 			var mouse = Input.mouse()
 			var diff = {
 				x: mouse.x - self.x,
-				y: mouse.y - self.y
+				y: mouse.y - self.y - 10
 			};
 			
 			var theta = Math.atan2(-diff.y, diff.x);
