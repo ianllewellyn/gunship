@@ -34,6 +34,8 @@
 		self._motion = 0;
 		self._drag = 0.05;
 		self._lastFired = 0;
+		self._bulletX = undefined;
+		self._bulletY = undefined;
 		
 		// Update the position of the ship based on frameTime
 		self.update = function(frameTime, delta){
@@ -190,13 +192,11 @@
 		self.drawGun = function(ctx){
 			var x = self.x;
 			var y = self.y + 10;
-			var end = {
-				x: (x + 20 * Math.cos(gunAngle)),
-				y: (y + 20 * -Math.sin(gunAngle))
-			};
+			var endX = self._bulletX = x + 20 * Math.cos(gunAngle);
+			var endY = self._bulletY = y + 20 * -Math.sin(gunAngle);
 			
 			ctx.beginPath();
-			ctx.moveTo(end.x, end.y);
+			ctx.moveTo(endX, endY);
 			ctx.lineTo(x, y);
 			ctx.stroke();
 		}
@@ -228,8 +228,8 @@
 			// effects.play('gun');
 			
 			self.assetList.add(new Bullet({
-				x: self.x,
-				y: self.y+10,
+				x: self._bulletX,
+				y: self._bulletY,
 				angle: gunAngle
 			}));
 		}

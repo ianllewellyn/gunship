@@ -17,6 +17,10 @@
 		// console.log(e.keyCode);
 		_keys[e.keyCode] = true;
 	});
+	
+	//NOTE: There is a problem here, it's possible for a key to be pressed
+	// and released between two frames meaning that the keypress would not
+	// be registered.
 	document.addEventListener('keyup', function(e){
 		delete _keys[e.keyCode];
 	});
