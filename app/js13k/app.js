@@ -12,12 +12,12 @@
 	// to this array to automatically update and draw them
 	// each frame.
 	var initialize = function(assets){
-		assets.push(new Background({
+		assets.add(new Background({
 			width: game.width,
 			height: game.height
 		}));
-		assets.push(new FrameTimer());
-		assets.push(new Ship({
+		assets.add(new FrameTimer());
+		assets.add(new Ship({
 			x: game.width/2,
 			y: game.height-135,
 			bounds: {

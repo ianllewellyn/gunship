@@ -182,7 +182,6 @@
 				x: x,
 				y: y
 			}, true);
-			// ctx.fill();
 			
 			self.drawRoter(ctx);
 		}
@@ -225,7 +224,13 @@
 		}
 		
 		self.fire = function(){
-			effects.play('gun');
+			// effects.play('gun');
+			
+			self.assetList.add(new Bullet({
+				x: self.x,
+				y: self.y+10,
+				angle: gunAngle
+			}));
 		}
 	}
 })()

@@ -1,5 +1,43 @@
 (function(){
 	
+	// A collection for managing assets in the game loop.
+	var AssetList = function(){
+		var self = this;
+		
+		self._assets = [];
+		
+		// Add an asset
+		self.add = function(asset){
+			asset.assetList = self;
+			self._assets.push(asset);
+		}
+		
+		// Remove an asset
+		self.remove = function(asset){
+			var i = self._assets.indexOf(asset);
+			if(i > -1){
+				asset.destroy();
+				self._assets.splice(i, 1);
+			}
+		}
+		
+		// Update all assets
+		self.update = function(frameTime, delta){
+			self._assets.forEach(function(asset){
+				if(asset.update)
+					asset.update(frameTime, delta);
+			});
+		}
+		
+		// Draw all assets
+		self.draw = function(ctx){
+			self._assets.forEach(function(asset){
+				if(asset.draw)
+					asset.draw(ctx);
+			});
+		}
+	};
+	
 	// A simple game loop
 	//
 	// {
@@ -21,7 +59,8 @@
 		self.ctx = self.canvas.getContext('2d');
 		self.width = self.canvas.width;
 		self.height = self.canvas.height;
-		self.assets = [];
+		// self.assets = [];
+		self.assets = new AssetList();
 		
 		// Start the game loop
 		// Initialize the game and draw the initial frame.
@@ -63,18 +102,16 @@
 				// Update each of the assets then call the update callback.
 				// frameTime is passed into the update call so assets know how long
 				// since the last frame was updated and don't have to manage it themselves.
-				self.assets.forEach(function(asset){
-					if(asset.update)
-						asset.update(frameTime, delta);
-				});
+				// self.assets.forEach(function(asset){
+				// 	if(asset.update)
+				// 		asset.update(frameTime, delta);
+				// });
+				self.assets.update(frameTime, delta);
 				self.update(frameTime, delta);
 				
 				// Clear the canvas before calling draw() on each asset
 				self.ctx.clearRect(0, 0, 400, 400);
-				self.assets.forEach(function(asset){
-					if(asset.draw)
-						asset.draw(self.ctx);
-				});
+				self.assets.draw(self.ctx);
 				self.draw(self.ctx);
 			}
 		}
