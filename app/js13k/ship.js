@@ -249,9 +249,10 @@
 			self.assetList.add(new Bullet({
 				x: self._bulletX,
 				y: self._bulletY,
-				speed: 20,
+				speed: 10,
+				speedVariation: 2,
 				angle: cannonAngle,
-				variation: 0.08
+				angleVariation: 0.08
 			}));
 		}
 	}

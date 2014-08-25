@@ -4,13 +4,16 @@
 		
 		self.x = options.x;
 		self.y = options.y;
-		self.speed = options.speed || 20;
-		self.variation = options.variation || 0;
+		self.speedVariation = options.speedVariation || 0;
+		self.angleVariation = options.angleVariation || 0
 		
-		// Add a random variance to the angle of the bullet so they
-		// don't follow each other exactly.
-		var angleAdjust = (Math.random() * self.variation) - (self.variation / 2);
+		// Add the angle variation
+		var angleAdjust = (Math.random() * self.angleVariation) - (self.angleVariation / 2);
 		var angle = self.angle = options.angle + angleAdjust;
+		
+		// Apply the speed variation
+		var speedAdjust = (Math.random() * self.speedVariation) - (self.speedVariation / 2);
+		self.speed = (options.speed || 10) + speedAdjust;
 		
 		// Calculate the cos and sin values once up front based on the
 		// initial angle. The angle wont change here once created so no
@@ -21,8 +24,8 @@
 		self.update = function(frameTime, delta){
 			
 			// Update origin based on the angle
-			var x = self.x += 10 * self._cos;
-			var y = self.y += 10 * self._sin;
+			var x = self.x += self.speed * self._cos;
+			var y = self.y += self.speed * self._sin;
 			
 			// Remove from the assetList if we're off screen
 			if(x < 0 || x > 500 || y < 0 || y > 550){
@@ -33,6 +36,7 @@
 		self.draw = function(ctx){
 			var x = self.x;
 			var y = self.y;
+			// var speed = self.speed;
 			
 			ctx.lineWidth = 1;
 			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
