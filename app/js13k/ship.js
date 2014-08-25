@@ -138,6 +138,7 @@
 			
 			ctx.lineWidth = 1;
 			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
+			ctx.fillStyle = 'rgba(0, 0, 0, 1)';
 			
 			self.drawGun(ctx);
 			
@@ -181,7 +182,7 @@
 			], {
 				x: x,
 				y: y
-			}, true);
+			}, true, true, true);
 			
 			self.drawRoter(ctx);
 		}
@@ -233,4 +234,4 @@
 			}));
 		}
 	}
-})()
+})();

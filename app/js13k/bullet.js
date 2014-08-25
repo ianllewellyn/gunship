@@ -37,4 +37,4 @@
 		
 		self.destroy = function(){}
 	}
-})()
+})();

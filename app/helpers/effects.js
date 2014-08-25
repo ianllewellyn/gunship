@@ -24,4 +24,4 @@
 		soundData.tick < soundData.count-1 ? soundData.tick++ : soundData.tick = 0;
 	};
 	window.Effects = new Effects()
-})()
+})();
