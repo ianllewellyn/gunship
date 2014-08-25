@@ -21,53 +21,70 @@
 	]);
 	
 	window.Ship = function(options){
-		options = options || {};
-		this.x = options.x || 0;
-		this.y = options.y || 0;
-		this._bounds = options.bounds || {left: 0, right: 0};
+		var self = this;
 		
-		this._rotation = 0;
-		this._acceleration = 0.2;
-		this._maxSpeed = 5;
-		this._motion = 0;
-		this._drag = 0.01;
-		this._lastFired = 0;
+		options = options || {};
+		self.x = options.x || 0;
+		self.y = options.y || 0;
+		self._bounds = options.bounds || {left: 0, right: 0};
+		
+		self._rotation = 0;
+		self._acceleration = 0.2;
+		self._maxSpeed = 5;
+		self._motion = 0;
+		self._drag = 0.05;
+		self._lastFired = 0;
 		
 		// Update the position of the ship based on frameTime
-		this.update = function(frameTime){
-			var delta = (1/17)*frameTime;
-			this.updateRotor(delta);
-			this.updateMovement(delta);
+		self.update = function(frameTime, delta){
+			
+			self.updateRotor(delta);
+			self.updateMovement(delta);
+			self.updateGun(delta);
 			
 			// Should we fire?
-			var lastFired = this._lastFired;
+			var lastFired = self._lastFired;
 			lastFired += frameTime;
-			// console.log(lastFired);
 			if(Input.fire()){
 				if(lastFired > 90){
-					this.fire();
+					self.fire();
 					lastFired = 0;
 				}
-				this._lastFired = lastFired;
+				self._lastFired = lastFired;
 			}
 		}
 		
-		this.updateRotor = function(delta){
-			var rotation = this._rotation;
+		self.updateGun = function(delta){
+			var mouse = Input.mouse()
+			var diff = {
+				x: mouse.x - self.x,
+				y: mouse.y - self.y
+			};
+			
+			var theta = Math.atan2(-diff.y, diff.x);
+			
+			if(theta < 0)
+				theta += 2 * Math.PI;
+			
+			gunAngle = theta;
+		}
+		
+		self.updateRotor = function(delta){
+			var rotation = self._rotation;
 			rotation -= (FULL_CIRCLE/30) * delta;
 			if(rotation < -FULL_CIRCLE){
 				rotation += FULL_CIRCLE;
 			}
-			this._rotation = rotation;
+			self._rotation = rotation;
 		}
 		
-		this.updateMovement = function(delta){
-			var acceleration = this._acceleration * delta;
-			var drag = this._drag * delta;
-			var maxSpeed = this._maxSpeed * delta;
+		self.updateMovement = function(delta){
+			var acceleration = self._acceleration * delta;
+			var drag = self._drag * delta;
+			var maxSpeed = self._maxSpeed;// * delta;
 			
-			var motion = this._motion * delta;
-			var bounds = this._bounds;
+			var motion = self._motion;// * delta;
+			var bounds = self._bounds;
 			
 			// Capture movement inputs
 			var userInput = false;
@@ -80,26 +97,25 @@
 				userInput = true;
 			}
 			
-			// When we are drifting and there is a long frame the speed
-			// is artificially boosted so the drift carries on too long.
-			
 			// Limmit the max speed
 			motion = Math.max(-maxSpeed, Math.min(maxSpeed, motion));
 			
 			// Apply drag if we're not actively moving
 			var stoppedByDrag = false;
 			if(!userInput){
+				
 				if(motion > drag){
 					motion -= drag;
 				}else if(motion < -drag){
 					motion += drag;
 				}else{
-					stoppedByDrag = true;
+					motion = 0;
 				}
 			}
 			
 			// Calculate the new x position while respecting bounds
-			var newX = this.x + (motion * delta);
+			var newX = self.x + (motion * delta);
+			// var newX = this.x + motion;
 			if(newX > bounds.right){
 				motion = 0;
 				newX = bounds.right;
@@ -109,24 +125,23 @@
 			}
 			
 			// Update the x position
-			this.x = newX;
-			
-			// If we've been stopped by drag taking us to zero
-			// then set motion to zero AFTER x has been updated.
-			if(stoppedByDrag) motion = 0;
+			self.x = newX;
 			
 			// Store the current motion for next time
-			this._motion = motion;
+			self._motion = motion;
 		}
 		
 		// Draw the helicopter
-		this.draw = function(ctx){
-			var x = this.x;
-			var y = this.y;
+		self.draw = function(ctx){
+			var x = self.x;
+			var y = self.y;
 			
 			ctx.lineWidth = 1;
 			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
 			
+			self.drawGun(ctx);
+			
+			// ctx.fillStyle = 'rgba(0, 0, 0, 1)'
 			drawShape(ctx, [
 				// Cabin
 				[0, 0],
@@ -167,14 +182,29 @@
 				x: x,
 				y: y
 			}, true);
+			// ctx.fill();
 			
-			this.drawRoter(ctx);
+			self.drawRoter(ctx);
 		}
 		
-		this.drawRoter = function(ctx){
-			var x = this.x;
-			var y = this.y+40;
-			var rotation = this._rotation;
+		self.drawGun = function(ctx){
+			var x = self.x;
+			var y = self.y + 10;
+			var end = {
+				x: (x + 20 * Math.cos(gunAngle)),
+				y: (y + 20 * -Math.sin(gunAngle))
+			};
+			
+			ctx.beginPath();
+			ctx.moveTo(end.x, end.y);
+			ctx.lineTo(x, y);
+			ctx.stroke();
+		}
+		
+		self.drawRoter = function(ctx){
+			var x = self.x;
+			var y = self.y+40;
+			var rotation = self._rotation;
 			
 			// Apply the rotation value to the rotor line positions
 			var innerRotor1Pos = INNER_ROTOR_1_POS + rotation;
@@ -194,7 +224,7 @@
 			drawArc(ctx, x, y, 60, outerRotor2Pos, outerRotor2Pos + FIFTH_CIRCLE);
 		}
 		
-		this.fire = function(){
+		self.fire = function(){
 			effects.play('gun');
 		}
 	}

@@ -1,8 +1,12 @@
+// IDEAS:
 // Floaty glowing spots in the foreground kinda like the chemical
 // brothers video with the glowing face.. Could be some nice depth
-// effects. Depth would be good to investigate with the game anyway.
+// effects. Depth would be good to investigate with the game anyway
+// to give hte effect of motion, paralax etc.
 
 (function(){
+	
+	var gunAngle = 0;
 	
 	// Initialize is passed an array of game assets. Add
 	// to this array to automatically update and draw them
@@ -34,8 +38,8 @@
 		canvas: $('#canvas'),
 		initialize: initialize,
 		update: update,
-		draw: draw
+		draw: draw/*,
+		fps: 30*/
 	});
 	game.start();
-	
 })();

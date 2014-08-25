@@ -7,7 +7,7 @@
 		// Calculates FPS by sampling previous frames. Keep trask of the last 30
 		// frameTime values, when we have 30 we take the average and use it to
 		// calculate the frame rate.
-		this.update = function(frameTime){
+		this.update = function(frameTime, delta){
 			var frames = this._frames;
 			var graph = this._graph;
 			

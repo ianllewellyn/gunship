@@ -12,13 +12,22 @@
 	
 	// Listen to keydown and keyup events to keep a map of all
 	// currently pressed keys
-	_keys = {}
+	var _keys = {};
 	document.addEventListener('keydown', function(e){
 		// console.log(e.keyCode);
 		_keys[e.keyCode] = true;
 	});
 	document.addEventListener('keyup', function(e){
 		delete _keys[e.keyCode];
+	});
+	
+	var _mouseX = 0;
+	var _mouseY = 0;
+	document.addEventListener('mousemove', function(e){
+		//TODO: Get the mouse position
+		// var rect = game.canvas.getBoundingClientRect();
+		_mouseX = e.clientX;// - rect.left;
+		_mouseY = e.clientY;// - rect.top;
 	});
 	
 	// Check if a control is currently down or not
@@ -56,6 +65,10 @@
 		// space bar
 		fire: function(){
 			return _isDown([32]);
+		},
+		
+		mouse: function(){
+			return {x: _mouseX, y: _mouseY};
 		}
 	};
 })();
