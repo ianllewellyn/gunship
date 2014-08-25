@@ -4,7 +4,13 @@
 		
 		self.x = options.x;
 		self.y = options.y;
-		var angle = self.angle = options.angle;
+		self.speed = options.speed || 20;
+		self.variation = options.variation || 0;
+		
+		// Add a random variance to the angle of the bullet so they
+		// don't follow each other exactly.
+		var angleAdjust = (Math.random() * self.variation) - (self.variation / 2);
+		var angle = self.angle = options.angle + angleAdjust;
 		
 		// Calculate the cos and sin values once up front based on the
 		// initial angle. The angle wont change here once created so no

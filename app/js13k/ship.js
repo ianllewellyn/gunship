@@ -19,7 +19,7 @@
 	// http://github.grumdrig.com/jsfxr/
 	// http://www.superflashbros.net/as3sfxr/
 	var effects = window.Effects;
-	effects.add('gun', 5, [
+	effects.add('cannon', 5, [
 		[0,,0.22,1,0.08,0.31,0.11,-0.4399,-0.76,,,-0.7,0.27,0.74,-0.3199,,,-0.0444,1,,,,,0.5],
 		[0,,0.26,1,0.08,0.29,0.12,-0.4399,-0.76,,,-0.7,0.27,0.74,-0.3199,,,-0.0444,1,,,,,0.5]
 	]);
@@ -48,7 +48,7 @@
 			
 			self.updateRotor(delta);
 			self.updateMovement(delta);
-			self.updateGun(delta);
+			self.updateCannon(delta);
 			
 			var lastFired = self._lastFired + frameTime;
 			var lastBurst = self._lastBurst + frameTime;
@@ -63,7 +63,7 @@
 			// If there is one or more rounds in the burst then
 			// fire a new one if we have waited long enough between
 			// rounds.
-			if(self._burst > 0 && lastFired > ROUND_DELAY){
+			if(burst > 0 && lastFired > ROUND_DELAY){
 				self.fire();
 				--burst;
 				lastFired = 0;
@@ -75,7 +75,7 @@
 			self._burst = burst;
 		}
 		
-		self.updateGun = function(delta){
+		self.updateCannon = function(delta){
 			var mouse = Input.mouse()
 			var diff = {
 				x: mouse.x - self.x,
@@ -87,7 +87,7 @@
 			if(theta < 0)
 				theta += 2 * Math.PI;
 			
-			gunAngle = theta;
+			cannonAngle = theta;
 		}
 		
 		self.updateRotor = function(delta){
@@ -161,7 +161,7 @@
 			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
 			ctx.fillStyle = 'rgba(0, 0, 0, 1)';
 			
-			self.drawGun(ctx);
+			self.drawCannon(ctx);
 			
 			// ctx.fillStyle = 'rgba(0, 0, 0, 1)'
 			drawShape(ctx, [
@@ -208,11 +208,11 @@
 			self.drawRoter(ctx);
 		}
 		
-		self.drawGun = function(ctx){
+		self.drawCannon = function(ctx){
 			var x = self.x;
 			var y = self.y + 10;
-			var endX = self._bulletX = x + 20 * Math.cos(gunAngle);
-			var endY = self._bulletY = y + 20 * -Math.sin(gunAngle);
+			var endX = self._bulletX = x + 20 * Math.cos(cannonAngle);
+			var endY = self._bulletY = y + 20 * -Math.sin(cannonAngle);
 			
 			ctx.beginPath();
 			ctx.moveTo(endX, endY);
@@ -244,12 +244,14 @@
 		}
 		
 		self.fire = function(){
-			// effects.play('gun');
+			// effects.play('cannon');
 			
 			self.assetList.add(new Bullet({
 				x: self._bulletX,
 				y: self._bulletY,
-				angle: gunAngle
+				speed: 20,
+				angle: cannonAngle,
+				variation: 0.08
 			}));
 		}
 	}
