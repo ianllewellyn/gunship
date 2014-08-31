@@ -1,5 +1,7 @@
 (function(){
 	window.Enemy = function(options){
+		window.Enemy.instances.push(this);
+		
 		var self = this;
 		
 		self.x = options.x;
@@ -13,7 +15,7 @@
 			
 			// Remove if we have traveled out of bounds
 			if(y < bounds.top || y > bounds.bottom){
-				self.assetList.remove(self);
+				self.destroy()
 			}
 		}
 		
@@ -23,6 +25,19 @@
 			drawCircle(ctx, self.x, self.y, 10);
 		}
 		
-		self.destroy = function(){}
+		self.destroy = function(){
+			window.Enemy.instances.splice(window.Enemy.instances.indexOf(self), 1);
+			self.assetList.remove(self);
+		}
+		
+		self.getRect = function(){
+			return {
+				top: self.y-10,
+				right: self.x+10,
+				bottom: self.y+10,
+				left: self.x-10 
+			}
+		}
 	}
+	window.Enemy.instances = [];
 })();

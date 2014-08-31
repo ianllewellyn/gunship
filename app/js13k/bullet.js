@@ -1,5 +1,7 @@
 (function(){
 	window.Bullet = function(options){
+		window.Bullet.instances.push(this);
+		
 		var self = this;
 		
 		self.x = options.x;
@@ -33,7 +35,7 @@
 			
 			// Remove if we have traveled out of bounds
 			if(x < bounds.left || x > bounds.right || y < bounds.top || y > bounds.bottom){
-				self.assetList.remove(self);
+				self.destroy()
 			}
 		}
 		
@@ -49,6 +51,23 @@
 			ctx.stroke();
 		}
 		
-		self.destroy = function(){}
+		self.destroy = function(){
+			window.Bullet.instances.splice(window.Bullet.instances.indexOf(self), 1);
+			self.assetList.remove(self);
+		}
+		
+		self.hits = function(target){
+			var enemy = target.getRect()
+			var x = self.x;
+			var y = self.y;
+			
+			if(x > enemy.left && x < enemy.right && y > enemy.top && y < enemy.bottom){
+				return true;
+			}else{
+				return false;
+			}
+		}
 	}
+	
+	window.Bullet.instances = [];
 })();

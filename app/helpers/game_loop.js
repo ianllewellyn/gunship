@@ -16,7 +16,7 @@
 		self.remove = function(asset){
 			var i = self._assets.indexOf(asset);
 			if(i > -1){
-				asset.destroy();
+				// asset.destroy();
 				self._assets.splice(i, 1);
 			}
 		}

@@ -48,7 +48,22 @@
 					bottom: game.height+20,
 					left: 0
 				}
-			}))
+			}));
+		}
+		
+		//TODO: Run through each bullet and check for collisions with
+		// each enemy
+		var bullets = window.Bullet.instances;
+		var enemies = window.Enemy.instances;
+		for(var i=0; i<bullets.length; ++i){
+			var bullet = bullets[i];
+			for(var r=0; r<enemies.length; ++r){
+				var enemy = enemies[r];
+				if(bullet.hits(enemy)){
+					enemy.destroy();
+					bullet.destroy();
+				}
+			}
 		}
 	}
 	
