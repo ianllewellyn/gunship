@@ -4,8 +4,8 @@
 
 ### Must have
 
-* Stop hardcoding the canvas size in the bullets
 * Limit the rotation of the cannon
+* Bullet drag isn't increased on long frames
 
 ### Nice to have
 

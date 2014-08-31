@@ -30,7 +30,7 @@
 		options = options || {};
 		self.x = options.x || 0;
 		self.y = options.y || 0;
-		self._bounds = options.bounds || {left: 0, right: 0};
+		self._bounds = options.bounds || {top: 0, right: 0, bottom: 0, left: 0};
 		
 		self._rotation = 0;
 		self._acceleration = 0.2;
@@ -252,7 +252,8 @@
 				speed: 10,
 				speedVariation: 1,
 				angle: cannonAngle,
-				angleVariation: 0.1
+				angleVariation: 0.1,
+				bounds: self._bounds
 			}));
 		}
 	}

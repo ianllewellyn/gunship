@@ -21,8 +21,10 @@
 			x: game.width/2,
 			y: game.height-135,
 			bounds: {
-				left: 0,
-				right: game.width
+				top: 0,
+				right: game.width,
+				bottom: game.height,
+				left: 0
 			}
 		}));
 	}

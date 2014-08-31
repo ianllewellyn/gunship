@@ -6,6 +6,7 @@
 		self.y = options.y;
 		self.speedVariation = options.speedVariation || 0;
 		self.angleVariation = options.angleVariation || 0;
+		self._bounds = options.bounds;
 		
 		// Add the angle variation
 		var angleAdjust = (Math.random() * self.angleVariation) - (self.angleVariation / 2);
@@ -24,13 +25,15 @@
 		self.update = function(frameTime, delta){
 			self.speed -= 0.05;
 			var speed = self.speed * delta;
+			var bounds = self._bounds;
 			
 			// Update origin based on the angle
 			var x = self.x += speed * self._cos;
 			var y = self.y += speed * self._sin;
 			
-			// Remove from the assetList if we're off screen
-			if(x < 0 || x > 500 || y < 0 || y > 630){
+			// Remove if we have traveled out of bounds
+			if(x < 0 || x > bounds.right || y < 0 || y > bounds.bottom){
+				console.log('remve');
 				self.assetList.remove(self);
 			}
 		}
