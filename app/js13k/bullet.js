@@ -32,7 +32,7 @@
 			var y = self.y += speed * self._sin;
 			
 			// Remove if we have traveled out of bounds
-			if(x < 0 || x > bounds.right || y < 0 || y > bounds.bottom){
+			if(x < bounds.left || x > bounds.right || y < bounds.top || y > bounds.bottom){
 				self.assetList.remove(self);
 			}
 		}
