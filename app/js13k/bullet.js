@@ -6,7 +6,7 @@
 		self.y = options.y;
 		self.speedVariation = options.speedVariation || 0;
 		self.angleVariation = options.angleVariation || 0;
-		self._bounds = options.bounds;
+		self.bounds = options.bounds;
 		
 		// Add the angle variation
 		var angleAdjust = (Math.random() * self.angleVariation) - (self.angleVariation / 2);
@@ -25,7 +25,7 @@
 		self.update = function(frameTime, delta){
 			self.speed -= (0.05 / delta);
 			var speed = self.speed * delta;
-			var bounds = self._bounds;
+			var bounds = self.bounds;
 			
 			// Update origin based on the angle
 			var x = self.x += speed * self._cos;
