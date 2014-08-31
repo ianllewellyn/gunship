@@ -23,7 +23,7 @@
 		self._sin = -Math.sin(angle);
 		
 		self.update = function(frameTime, delta){
-			self.speed -= 0.05;
+			self.speed -= (0.05 / delta);
 			var speed = self.speed * delta;
 			var bounds = self._bounds;
 			
@@ -33,7 +33,6 @@
 			
 			// Remove if we have traveled out of bounds
 			if(x < 0 || x > bounds.right || y < 0 || y > bounds.bottom){
-				console.log('remve');
 				self.assetList.remove(self);
 			}
 		}
