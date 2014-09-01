@@ -36,15 +36,15 @@
 			
 			var tx = {x: 50, y: 0};
 			
-			ctx.lineWidth = 1;
-			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-			drawShape(ctx, [
-				[0, 0],
-				[0, 40],
-				[200, 40],
-				[200, 0],
-				[0, 0]
-			], tx, false, true);
+			// ctx.lineWidth = 1;
+			// ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
+			// drawShape(ctx, [
+			// 	[0, 0],
+			// 	[0, 40],
+			// 	[200, 40],
+			// 	[200, 0],
+			// 	[0, 0]
+			// ], tx, false, true);
 			
 			var graph = self._graph;
 			var points = [];//[[0, 40]];
