@@ -4,8 +4,6 @@
 
 ### Must have
 
-* Basic enemies!
-* Bullet collisions
 * Ship collisions
 * Score
 

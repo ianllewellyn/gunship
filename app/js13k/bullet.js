@@ -25,7 +25,7 @@
 		self._sin = -Math.sin(angle);
 		
 		self.update = function(frameTime, delta){
-			self.speed -= (0.05 / delta);
+			self.speed -= (0.05 * delta);
 			var speed = self.speed * delta;
 			var bounds = self.bounds;
 			
