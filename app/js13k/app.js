@@ -8,24 +8,33 @@
 	
 	var SPAWN_TIME = 2000;
 	
+	var scoreBoard;
+	
 	// Initialize is passed an array of game assets. Add
 	// to this array to automatically update and draw them
 	// each frame.
 	var initialize = function(assets){
+		var bounds = {
+			top: 0,
+			right: game.width,
+			bottom: game.height,
+			left: 0
+		};
+		
 		assets.add(new Background({
 			width: game.width,
 			height: game.height
 		}));
 		assets.add(new FrameTimer());
+		
+		scoreBoard = new ScoreBoard({
+			bounds: bounds
+		});
+		assets.add(scoreBoard);
 		assets.add(new Ship({
 			x: game.width/2,
 			y: game.height-135,
-			bounds: {
-				top: 0,
-				right: game.width,
-				bottom: game.height,
-				left: 0
-			}
+			bounds: bounds
 		}));
 	}
 	
@@ -51,7 +60,7 @@
 			}));
 		}
 		
-		//TODO: Run through each bullet and check for collisions with
+		// Run through each bullet and check for collisions with
 		// each enemy
 		var bullets = window.Bullet.instances;
 		var enemies = window.Enemy.instances;
@@ -62,6 +71,7 @@
 				if(bullet.hits(enemy)){
 					enemy.destroy();
 					bullet.destroy();
+					scoreBoard.score += 10;
 				}
 			}
 		}

@@ -5,7 +5,7 @@
 ### Must have
 
 * Ship collisions
-* Score
+* Score multiplier - Multiplier rises for each 10 kills until you miss an enemy
 
 ### Nice to have
 
