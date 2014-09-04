@@ -69,7 +69,13 @@
 			for(var r=0; r<enemies.length; ++r){
 				var enemy = enemies[r];
 				if(bullet.hits(enemy)){
-					enemy.destroy();
+					enemy.destroy({
+						explode: true,
+						angle: bullet.angle,
+						speed: bullet.speed * 0.8,
+						x: bullet.x,
+						y: bullet.y
+					});
 					bullet.destroy();
 					scoreBoard.score += 10;
 				}

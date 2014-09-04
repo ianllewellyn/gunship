@@ -25,9 +25,27 @@
 			drawCircle(ctx, self.x, self.y, 10);
 		}
 		
-		self.destroy = function(){
+		self.destroy = function(options){
+			if(!options) options = {}
 			window.Enemy.instances.splice(window.Enemy.instances.indexOf(self), 1);
 			self.assetList.remove(self);
+			
+			// Draw some particles from origin if the explode option
+			// is true
+			if(options.explode){
+				for(var i=0; i<10; ++i){
+					self.assetList.add(new Particle({
+						x: options.x,
+						y: options.y,
+						speed: options.speed,
+						speedVariation: 2.5,
+						angle: options.angle,
+						
+						angleVariation: 2,
+						bounds: self.bounds
+					}));
+				}
+			}
 		}
 		
 		self.getRect = function(){
