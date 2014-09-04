@@ -1,13 +1,11 @@
-# Apache
+# gunship
 
-## TODO
-
-### Must have
+## Must have
 
 * Ship collisions
 * Score multiplier - Multiplier rises for each 10 kills until you miss an enemy
 
-### Nice to have
+## Nice to have
 
 * Limit the rotation of the cannon
 * Make the ship bob up and down to show motion
