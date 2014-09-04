@@ -21,5 +21,4 @@
 * Rotate the ship a little when it moves left/right
 * Particles inflict damage on enemies
 * Fix helicopter nose
-* Possibly an underlying grid to it looks like we're flying forward
-* Bob the helicopter to give the impression of speed
+* An underlying ground grid so it looks like we're flying forward
