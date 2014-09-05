@@ -9,6 +9,9 @@
 		self.bounds = options.bounds;
 		self.speed = options.speed || 2;
 		
+		// Health is set to 30 to start for a simple enemy
+		self.health = 30;
+		
 		self.update = function(frameTime, delta){
 			var bounds = self.bounds;
 			var y = self.y += (self.speed * delta);
@@ -51,6 +54,7 @@
 			}
 		}
 		
+		// Get the rect of the enemy for collision detection
 		self.getRect = function(){
 			return {
 				top: self.y-10,
@@ -58,6 +62,12 @@
 				bottom: self.y+10,
 				left: self.x-10 
 			}
+		}
+		
+		// Apply damage to the enemy. Returns true if the enemy
+		// was killed in the process, false if not.
+		self.damage = function(damage){
+			return (self.health -= damage) <= 0 ? true : false;
 		}
 	}
 	window.Enemy.instances = [];

@@ -43,6 +43,9 @@
 		self._bulletX = undefined;
 		self._bulletY = undefined;
 		
+		// Health is set to 90 to start
+		self.health = 90;
+		
 		// Update the position of the ship based on frameTime
 		self.update = function(frameTime, delta){
 			
@@ -206,50 +209,6 @@
 			}, true, true, true);
 			
 			self.drawRoter(ctx);
-			
-			// Bounding boxes
-			// ctx.lineWidth = 1;
-			// ctx.strokeStyle = 'rgba(255, 0, 0, 1)';
-			// drawShape(ctx, [
-			// 	[-10, 0],
-			// 	[10, 0],
-			// 	[10, 60],
-			// 	[-10, 60],
-			// 	[-10, 0]
-			// ], {
-			// 	x: x,
-			// 	y: y
-			// }, false, true);
-			// drawShape(ctx, [
-			// 	[-20, 30],
-			// 	[20, 30],
-			// 	[20, 47],
-			// 	[-20, 47],
-			// 	[-20, 30]
-			// ], {
-			// 	x: x,
-			// 	y: y
-			// }, false, true);
-			// drawShape(ctx, [
-			// 	[-3, 47],
-			// 	[3, 47],
-			// 	[3, 125],
-			// 	[-3, 125],
-			// 	[-3, 47],
-			// ], {
-			// 	x: x,
-			// 	y: y
-			// }, false, true);
-			// drawShape(ctx, [
-			// 	[-15, 110],
-			// 	[15, 110],
-			// 	[15, 116],
-			// 	[-15, 116],
-			// 	[-15, 110],
-			// ], {
-			// 	x: x,
-			// 	y: y
-			// }, false, true);
 		}
 		
 		self.drawCannon = function(ctx){
@@ -301,6 +260,9 @@
 			}));
 		}
 		
+		// Returns an array of rects that define hit boxes for
+		// the different parts of the ship. A single rect isn't
+		// precise enough for a complex shape like a helicopter.
 		self.getRects = function(){
 			return [
 				{
@@ -330,6 +292,7 @@
 			];
 		}
 		
+		// Check if the target hits the ship
 		self.hits = function(target){
 			var allRects = self.getRects();
 			for(var i=0; i<allRects.length; ++i){
@@ -339,8 +302,10 @@
 			}
 		}
 		
-		self.damage = function(ammount){
-			//TODO: Remove damage from our health
+		// Apply damage to the ship. Returns true if the ship
+		// was killed in the process, false if not.
+		self.damage = function(damage){
+			return (self.health -= damage) <= 0 ? true : false;
 		}
 	}
 })();

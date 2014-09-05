@@ -70,13 +70,15 @@
 			for(var r=0; r<enemies.length; ++r){
 				var enemy = enemies[r];
 				if(bullet.hits(enemy)){
-					enemy.destroy({
-						explode: true,
-						angle: bullet.angle,
-						speed: bullet.speed * 0.8,
-						x: bullet.x,
-						y: bullet.y
-					});
+					if(enemy.damage(30)){
+						enemy.destroy({
+							explode: true,
+							angle: bullet.angle,
+							speed: bullet.speed * 0.8,
+							x: bullet.x,
+							y: bullet.y
+						});
+					}
 					bullet.destroy();
 					scoreBoard.score += 10;
 				}
@@ -96,7 +98,12 @@
 					angleVariation: 6.28
 				});
 				
-				ship.damage(30);
+				// Apply the damage to the ship and check if it
+				// is dead.
+				if(ship.damage(30)){
+					//TODO: Destroy the ship
+					//TODO: Show Game Over
+				}
 			}
 		}
 	}
