@@ -70,12 +70,20 @@
 			requestAnimationFrame(self._drawFrame);
 		}
 		
+		// Pause the game
+		self._stop = false;
+		self.stop = function(){
+			self._stop = true;
+		}
+		
 		self.then = 0;
 		if(self.fps)
 			self._interval = 1000 / self.fps;
 		
 		// Draw a frame of the game. Update all assets then draw them.
 		self._drawFrame = function(now){
+			if(self._stop)
+				return
 			
 			// Request the next frame draw
 			requestAnimationFrame(self._drawFrame);

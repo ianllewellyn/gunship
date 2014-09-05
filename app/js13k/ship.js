@@ -181,8 +181,8 @@
 				[17, 38],
 				[17, 30],
 				[20, 30],
-				
 				[20, 47],
+				
 				[12, 47],
 				[12, 60],
 				[6, 64],
@@ -206,6 +206,50 @@
 			}, true, true, true);
 			
 			self.drawRoter(ctx);
+			
+			// Bounding boxes
+			// ctx.lineWidth = 1;
+			// ctx.strokeStyle = 'rgba(255, 0, 0, 1)';
+			// drawShape(ctx, [
+			// 	[-10, 0],
+			// 	[10, 0],
+			// 	[10, 60],
+			// 	[-10, 60],
+			// 	[-10, 0]
+			// ], {
+			// 	x: x,
+			// 	y: y
+			// }, false, true);
+			// drawShape(ctx, [
+			// 	[-20, 30],
+			// 	[20, 30],
+			// 	[20, 47],
+			// 	[-20, 47],
+			// 	[-20, 30]
+			// ], {
+			// 	x: x,
+			// 	y: y
+			// }, false, true);
+			// drawShape(ctx, [
+			// 	[-3, 47],
+			// 	[3, 47],
+			// 	[3, 125],
+			// 	[-3, 125],
+			// 	[-3, 47],
+			// ], {
+			// 	x: x,
+			// 	y: y
+			// }, false, true);
+			// drawShape(ctx, [
+			// 	[-15, 110],
+			// 	[15, 110],
+			// 	[15, 116],
+			// 	[-15, 116],
+			// 	[-15, 110],
+			// ], {
+			// 	x: x,
+			// 	y: y
+			// }, false, true);
 		}
 		
 		self.drawCannon = function(ctx){
@@ -255,6 +299,48 @@
 				angleVariation: 0.1,
 				bounds: self._bounds
 			}));
+		}
+		
+		self.getRects = function(){
+			return [
+				{
+					top: self.y,
+					right: self.x + 10,
+					bottom: self.y + 60,
+					left: self.x - 10
+				},
+				{
+					top: self.y + 30,
+					right: self.x + 20,
+					bottom: self.y + 47,
+					left: self.x - 20
+				},
+				{
+					top: self.y + 47,
+					right: self.x + 3,
+					bottom: self.y + 125,
+					left: self.x - 3
+				},
+				{
+					top: self.y + 110,
+					right: self.x + 15,
+					bottom: self.y + 116,
+					left: self.x - 15
+				}
+			];
+		}
+		
+		self.hits = function(target){
+			var allRects = self.getRects();
+			for(var i=0; i<allRects.length; ++i){
+				if(intersectRect(target.getRect(), allRects[i])){
+					return true;
+				}
+			}
+		}
+		
+		self.damage = function(ammount){
+			//TODO: Remove damage from our health
 		}
 	}
 })();

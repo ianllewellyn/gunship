@@ -26,7 +26,10 @@
 		}
 		
 		self.destroy = function(options){
-			if(!options) options = {}
+			if(!options) options = {};
+			if(options.angleVariation === undefined)
+				options.angleVariation = 2;
+			
 			window.Enemy.instances.splice(window.Enemy.instances.indexOf(self), 1);
 			self.assetList.remove(self);
 			
@@ -41,7 +44,7 @@
 						speedVariation: 2.5,
 						angle: options.angle,
 						
-						angleVariation: 2,
+						angleVariation: options.angleVariation,
 						bounds: self.bounds
 					}));
 				}

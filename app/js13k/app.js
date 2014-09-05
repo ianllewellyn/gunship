@@ -8,7 +8,7 @@
 	
 	var SPAWN_TIME = 2000;
 	
-	var scoreBoard;
+	var scoreBoard, ship;
 	
 	// Initialize is passed an array of game assets. Add
 	// to this array to automatically update and draw them
@@ -31,11 +31,12 @@
 			bounds: bounds
 		});
 		assets.add(scoreBoard);
-		assets.add(new Ship({
+		ship = new Ship({
 			x: game.width/2,
 			y: game.height-135,
 			bounds: bounds
-		}));
+		});
+		assets.add(ship);
 	}
 	
 	// The time that has passed since the last enemy was spawned
@@ -79,6 +80,23 @@
 					bullet.destroy();
 					scoreBoard.score += 10;
 				}
+			}
+		}
+		
+		// If check if the enemy bounds hits the ship
+		for(var i=0; i<enemies.length; ++i){
+			var enemy = enemies[i];
+			if(ship.hits(enemy)){
+				enemy.destroy({
+					explode: true,
+					x: enemy.x,
+					y: enemy.y,
+					speed: 5,
+					angle: 0,
+					angleVariation: 6.28
+				});
+				
+				ship.damage(30);
 			}
 		}
 	}
