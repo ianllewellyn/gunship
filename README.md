@@ -2,12 +2,12 @@
 
 ## must have
 
-* Kill animations
 * Ship collisions
 * Game over screen
 * Localstorage leaderboard
 * Score multiplier - Multiplier rises for each 10 kills until you miss an enemy
-* More enemies
+* Enemies with 2 circles (2 hits)
+* Enemies with 3 circles (3 hits)
 * Powerup: 5 round burst
 * Powerup: Armour peircing
 * Powerup: Fully auto
