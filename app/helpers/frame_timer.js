@@ -30,21 +30,10 @@
 		}
 		
 		self.draw = function(ctx){
-			ctx.fillStyle = '#fff';
+			ctx.fillStyle = 'rgba(255, 255, 255, 1)';
 			ctx.font = '12px Arial';
+			ctx.textAlign = 'left';
 			ctx.fillText(self._fps+' fps', 4, 27);
-			
-			var tx = {x: 50, y: 0};
-			
-			// ctx.lineWidth = 1;
-			// ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-			// drawShape(ctx, [
-			// 	[0, 0],
-			// 	[0, 40],
-			// 	[200, 40],
-			// 	[200, 0],
-			// 	[0, 0]
-			// ], tx, false, true);
 			
 			var graph = self._graph;
 			var points = [];//[[0, 40]];
@@ -52,8 +41,9 @@
 				points.push([i, 40-(graph[i]/2)]);
 			}
 			ctx.strokeStyle = 'rgba(255, 0, 0, 1)';
-			if(points.length) drawShape(ctx, points, tx, false, true);
-
+			if(points.length){
+				drawShape(ctx, points, {x: 50, y: 0}, false, true);
+			}
 		}
 	}
 })();
