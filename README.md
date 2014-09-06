@@ -6,7 +6,6 @@ Break multiplier when an enemy gets past.
 
 ## must have
 
-* Game over screen
 * An underlying ground grid so it looks like we're flying forward
 
 * Ship: Kill animation

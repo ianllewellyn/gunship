@@ -67,11 +67,11 @@
 		
 		// Run through each bullet and check for collisions with
 		// each enemy
-		var bullets = window.Bullet.instances;
-		var enemies = window.Enemy.instances;
-		for(var i=0; i<bullets.length; ++i){
+		var bullets = Bullet.instances;
+		var enemies = Enemy.instances;
+		for(var i=bullets.length-1; i>-1; --i){
 			var bullet = bullets[i];
-			for(var r=0; r<enemies.length; ++r){
+			for(var r=enemies.length-1; r>-1; --r){
 				var enemy = enemies[r];
 				if(bullet.hits(enemy)){
 					if(enemy.damage(30)){
@@ -90,7 +90,7 @@
 		}
 		
 		// Check if the enemy bounds hits the ship
-		for(var i=0; i<enemies.length; ++i){
+		for(var i=enemies.length-1; i>-1; --i){
 			var enemy = enemies[i];
 			if(ship.hits(enemy)){
 				enemy.destroy({
@@ -117,8 +117,8 @@
 		_gameOver = true;
 		
 		// Kill all enemies
-		var enemies = window.Enemy.instances;
-		for(var i=0; i<enemies.length; ++i){
+		var enemies = Enemy.instances;
+		for(var i=enemies.length-1; i>-1; --i){
 			var enemy = enemies[i];
 			enemy.destroy({
 				explode: true,
@@ -133,7 +133,15 @@
 		//TODO: Destroy the ship
 		
 		//TODO: Show Game Over
-		
+		game.assets.add(new GameOver({
+			bounds: {
+				top: 0,
+				right: game.width,
+				bottom: game.height,
+				left: 0
+			},
+			score: scoreBoard.score
+		}));
 	}
 	
 	// Draw anything in addition to registered assets
