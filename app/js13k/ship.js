@@ -30,7 +30,7 @@
 		options = options || {};
 		self.x = options.x || 0;
 		self.y = options.y || 0;
-		self._bounds = options.bounds || {top: 0, right: 0, bottom: 0, left: 0};
+		self.bounds = options.bounds || {top: 0, right: 0, bottom: 0, left: 0};
 		
 		self._rotation = 0;
 		self._acceleration = 0.2;
@@ -45,6 +45,31 @@
 		
 		// Health is set to 90 to start
 		self.health = 3;
+		
+		var createParticle = function(x, y){
+			
+			var allColors = [
+				[255, 185, 56], // Orange
+				[255, 255, 128]//, // Yellow
+			];
+			var color = allColors[Math.floor(Math.random() * allColors.length)];
+			
+			self.assetList.add(new Particle({
+				x: x,
+				y: y,
+				speed: 3,
+				speedVariation: 1,
+				// angle: 4.75,
+				angle: 5,
+				angleVariation: 1.5,
+				bounds: self.bounds,
+				color: color,
+				life: 1000,
+				particleLength: 7
+			}));
+		}
+		
+		self._particleTime = 0;
 		
 		// Update the position of the ship based on frameTime
 		self.update = function(frameTime, delta){
@@ -77,7 +102,20 @@
 				self._lastBurst = lastBurst;
 				self._burst = burst;
 				
-				//TODO: Throw some particles if we're damaged
+				// Throw some particles if we're damaged
+				if(self.health < 3){
+					
+					self._particleTime += frameTime;
+					if(self._particleTime > 200){
+						self._particleTime -= 200;
+						
+						// Throw particles from the main roter if we're on 2 health
+						var num = self.health < 2 ? 6 : 1;
+						for(var i=0; i<num; ++i){
+							createParticle(self.x, self.y+40);
+						}
+					}
+				}
 			}
 		}
 		
@@ -111,7 +149,7 @@
 			var maxSpeed = self._maxSpeed;// * delta;
 			
 			var motion = self._motion;// * delta;
-			var bounds = self._bounds;
+			var bounds = self.bounds;
 			
 			// Capture movement inputs
 			var userInput = false;
@@ -260,7 +298,7 @@
 				speedVariation: 1,
 				angle: cannonAngle,
 				angleVariation: 0.1,
-				bounds: self._bounds
+				bounds: self.bounds
 			}));
 		}
 		
