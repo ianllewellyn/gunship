@@ -62,13 +62,15 @@
 		
 		// Start the game loop
 		// Initialize the game and draw the initial frame.
-		self._initialized = false;
+		self._animating = false;
 		self.start = function(){
 			self.assets = new AssetList();
 			self.initialize(self.assets);
 			self.then = performance.now();
-			if(!self._initialized){
-				self._initialized = true;
+			
+			// Only kick off the requestAnimationFrame animation loop once
+			if(!self._animating){
+				self._animating = true;
 				requestAnimationFrame(self._drawFrame);
 			}
 		}
