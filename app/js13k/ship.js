@@ -171,8 +171,9 @@
 			drawShape(ctx, [
 				// Cabin
 				[0, 0],
-				[4, 0],
-				[4, 5],
+				[3, 0],
+				[3, 4],
+				[5, 6],
 				[6, 9],
 				[7, 14],
 				[7, 38],
@@ -236,11 +237,12 @@
 			var outerRotor2Pos = OUTER_ROTOR_2_POS + rotation;
 			
 			// Central hub
-			drawCircle(ctx, x, y, 2);
+			drawCircle(ctx, x, y, 6, true, true);
 			
 			// Inner blade trail
-			drawArc(ctx, x, y, 11, innerRotor1Pos, innerRotor1Pos + FIFTH_CIRCLE);
-			drawArc(ctx, x, y, 13, innerRotor2Pos, innerRotor2Pos + FIFTH_CIRCLE);
+			drawArc(ctx, x, y, 23, innerRotor1Pos, innerRotor1Pos + FIFTH_CIRCLE);
+			drawArc(ctx, x, y, 25, innerRotor2Pos, innerRotor2Pos + FIFTH_CIRCLE);
+			
 			
 			// Outer blade trail
 			drawArc(ctx, x, y, 55, outerRotor1Pos, outerRotor1Pos + FIFTH_CIRCLE);

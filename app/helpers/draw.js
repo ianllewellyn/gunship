@@ -37,10 +37,16 @@
 	}
 	
 	// Helper function for drawing circles
-	window.drawCircle = function(ctx, x, y, r){
+	window.drawCircle = function(ctx, x, y, r, stroke, fill){
+		
+		if(stroke == undefined) stroke = true;
+		if(fill == undefined) fill = false;
+		
 		ctx.beginPath();
 		ctx.arc(x, y, r, 0, 2*Math.PI);
-		ctx.stroke();
+		
+		if(fill) ctx.fill();
+		if(stroke) ctx.stroke();
 	}
 	
 	// Helper function for drawing arcs
