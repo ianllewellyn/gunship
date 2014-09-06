@@ -44,7 +44,7 @@
 		self._bulletY = undefined;
 		
 		// Health is set to 90 to start
-		self.health = 90;
+		self.health = 3;
 		
 		// Update the position of the ship based on frameTime
 		self.update = function(frameTime, delta){
@@ -76,6 +76,8 @@
 				self._lastFired = lastFired;
 				self._lastBurst = lastBurst;
 				self._burst = burst;
+				
+				//TODO: Throw some particles if we're damaged
 			}
 		}
 		

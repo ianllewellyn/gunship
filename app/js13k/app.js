@@ -115,7 +115,7 @@
 				
 				// Apply the damage to the ship and check if it
 				// is dead.
-				if(ship.damage(30)){
+				if(ship.damage(1)){
 					gameOver();
 					return;
 				}
@@ -142,7 +142,7 @@
 		
 		//TODO: Destroy the ship
 		
-		//TODO: Show Game Over
+		// Show Game Over
 		game.assets.add(new GameOver({
 			bounds: {
 				top: 0,
