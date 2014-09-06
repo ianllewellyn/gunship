@@ -11,6 +11,12 @@
 		self.lifeVariation = options.lifeVariation || 200;
 		self.bounds = options.bounds;
 		
+		// Allow the colour to be passed in, but default to white
+		var color = self.color = options.color || [255, 255, 255];
+		self._colorString = color[0]+', '+color[1]+', '+color[2];
+		
+		self.particleLength = options.particleLength || 10;
+		
 		// Add the angle variation
 		var angleAdjust = (Math.random() * self.angleVariation) - (self.angleVariation / 2);
 		var angle = self.angle = options.angle + angleAdjust;
@@ -55,11 +61,12 @@
 			var x = self.x;
 			var y = self.y;
 			var opacity = 1-((1/self.life) * self._age);
+			var particleLength = self.particleLength;
 			
 			ctx.lineWidth = 1;
-			ctx.strokeStyle = 'rgba(255, 255, 255, '+opacity+')';
+			ctx.strokeStyle = 'rgba('+self._colorString+', '+opacity+')';
 			ctx.beginPath();
-			ctx.moveTo((x + 10 * self._cos), (y + 10 * self._sin));
+			ctx.moveTo((x + particleLength * self._cos), (y + particleLength * self._sin));
 			ctx.lineTo(x, y);
 			ctx.stroke();
 		}
