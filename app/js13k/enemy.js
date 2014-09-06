@@ -46,7 +46,6 @@
 						speed: options.speed,
 						speedVariation: 2.5,
 						angle: options.angle,
-						
 						angleVariation: options.angleVariation,
 						bounds: self.bounds
 					}));

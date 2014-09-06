@@ -351,7 +351,32 @@
 		// Apply damage to the ship. Returns true if the ship
 		// was killed in the process, false if not.
 		self.damage = function(damage){
-			return (self.health -= damage) <= 0 ? true : false;
+			self.health -= damage;
+			self.explode(100 * (3-self.health));
+			return self.health <= 0 ? true : false;
+		}
+		
+		// Destroy the ship
+		self.destroy = function(options){
+			self.assetList.remove(self);
+		}
+		
+		// Make a particle explosion from the ship, particleCount is the
+		// number of particles to release
+		self.explode = function(particleCount){
+			if(particleCount == undefined) particleCount = 100;
+			for(var i=0; i<particleCount; ++i){
+				self.assetList.add(new Particle({
+					x: self.x,
+					y: self.y + 40,
+					speed: 10,
+					speedVariation: 8,
+					angle: 0,
+					angleVariation: 6.28,
+					bounds: self.bounds,
+					life: 500
+				}));
+			}
 		}
 	}
 })();

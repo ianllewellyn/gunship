@@ -140,7 +140,8 @@
 			});
 		}
 		
-		//TODO: Destroy the ship
+		// Destroy the ship
+		ship.destroy();
 		
 		// Show Game Over
 		game.assets.add(new GameOver({

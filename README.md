@@ -6,10 +6,6 @@ Break multiplier when an enemy gets past.
 
 ## must have
 
-* Ship: Drop sparks after one hit
-* Ship: Rotor imbalance after two hits
-* Ship: Kill animation
-
 * Game: Score multiplier - Multiplier rises for each 10 kills until you miss an enemy
 
 * Enemies with 2 circles (2 hits)
@@ -31,11 +27,12 @@ Break multiplier when an enemy gets past.
 * Code: Composit bitmap data instead of drawing vectors each frame
 * Code: Make particle and bullets share code
 
-* Ship: Make smaller
+* Ship: Smoke particles when damaged
 * Ship: Limit the rotation of the cannon
 * Ship: Make the ship bob up and down to show motion
 * Ship: Have the cannon push the helicopter backwards when it fires
 * Ship: Rotate the ship a little when it moves left/right
+* Ship: Make smaller?
 
 * Game: Localstorage leaderboard
 * Game: Particles inflict damage on enemies?
