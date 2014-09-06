@@ -274,8 +274,21 @@
 			drawArc(ctx, x, y, 23, innerRotor1Pos, innerRotor1Pos + FIFTH_CIRCLE);
 			drawArc(ctx, x, y, 25, innerRotor2Pos, innerRotor2Pos + FIFTH_CIRCLE);
 			
+			// Change the radius of one of the arcs depending on damage
+			var innerRadius;
+			switch(self.health){
+				case 1:
+					innerRadius = 50;
+					break;
+				case 2:
+					innerRadius = 55;
+					break;
+				default:
+					innerRadius = 60;
+			}
+			
 			// Outer blade trail
-			drawArc(ctx, x, y, 55, outerRotor1Pos, outerRotor1Pos + FIFTH_CIRCLE);
+			drawArc(ctx, x, y, innerRadius, outerRotor1Pos, outerRotor1Pos + FIFTH_CIRCLE);
 			drawArc(ctx, x, y, 60, outerRotor2Pos, outerRotor2Pos + FIFTH_CIRCLE);
 		}
 		
