@@ -97,6 +97,7 @@
 					angle: 0,
 					angleVariation: 6.28
 				});
+				scoreBoard.score += 10;
 				
 				// Apply the damage to the ship and check if it
 				// is dead.
