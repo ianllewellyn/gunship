@@ -48,6 +48,7 @@
 						angle: options.angle,
 						angleVariation: options.angleVariation,
 						bounds: self.bounds
+						,life: 500
 					}));
 				}
 			}

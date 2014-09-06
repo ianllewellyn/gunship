@@ -1,4 +1,16 @@
 (function(){
+	
+	// Reflection helper methods
+	var reflectVertical = function(incidence){
+		var r = 0 - (incidence + Math.PI - 0);
+		return -Math.PI - incidence;
+	}
+	var reflectHorizontal = function(incidence){
+		var r = 0.5*Math.PI - (incidence + Math.PI - 0.5*Math.PI);
+		r = 2 * Math.PI - incidence;
+		return -incidence;
+	}
+	
 	window.Particle = function(options){
 		window.Particle.instances.push(this);
 		
@@ -17,10 +29,6 @@
 		
 		self.particleLength = options.particleLength || 10;
 		
-		// Add the angle variation
-		var angleAdjust = (Math.random() * self.angleVariation) - (self.angleVariation / 2);
-		var angle = self.angle = options.angle + angleAdjust;
-		
 		// Apply the speed variation
 		var speedAdjust = (Math.random() * self.speedVariation) - (self.speedVariation / 2);
 		self.speed = (options.speed || 10) + speedAdjust;
@@ -29,11 +37,18 @@
 		var lifeAdjust = (Math.random() * self.lifeVariation) - (self.lifeVariation / 2);
 		self.life = (options.life || 300) + lifeAdjust;
 		
+		// Add the angle variation
+		var angleAdjust = (Math.random() * self.angleVariation) - (self.angleVariation / 2);
+		var angle = options.angle + angleAdjust;
 		// Calculate the cos and sin values once up front based on the
 		// initial angle. The angle wont change here once created so no
 		// need to re-calculate each update.
-		self._cos = Math.cos(angle);
-		self._sin = -Math.sin(angle);
+		var setAngle = function(angle){
+			self.angle = angle;
+			self._cos = Math.cos(angle);
+			self._sin = -Math.sin(angle);
+		}
+		setAngle(angle);
 		
 		self._age = 0;
 		
@@ -41,15 +56,30 @@
 			self.speed -= (0.05 * delta);
 			var speed = self.speed * delta;
 			var bounds = self.bounds;
+			var x, y;
 			
 			// Update origin based on the angle
-			var x = self.x += speed * self._cos;
-			var y = self.y += speed * self._sin;
-			
-			// Remove if we have traveled out of bounds
-			if(x < bounds.left || x > bounds.right || y < bounds.top || y > bounds.bottom){
-				self.destroy();
+			var calculateCoordinates = function(){
+				x = self.x + speed * self._cos;
+				y = self.y + speed * self._sin;
 			}
+			calculateCoordinates();
+			
+			// Handle vertical reflection when we go out of bounds
+			if(x < bounds.left || x > bounds.right){
+				setAngle(reflectVertical(self.angle));
+				calculateCoordinates()
+			}
+			
+			// Handle horizontal reflection when we go out of bounds
+			if(y < bounds.top || y > bounds.bottom){
+				setAngle(reflectHorizontal(self.angle));
+				calculateCoordinates();
+			}
+			
+			// Store the updated positions
+			self.x = x;
+			self.y = y;
 			
 			// Remove if we've been alive too long
 			self._age += frameTime;
