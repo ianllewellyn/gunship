@@ -41,9 +41,13 @@
 	
 	// The time that has passed since the last enemy was spawned
 	var enemyTime = 0;
+	var _gameOver = false;
 	
 	// Update anything in addition to registered assets
 	var update = function(frameTime){
+		
+		if(_gameOver)
+			return
 		
 		// Spawn enemies as time passes
 		enemyTime += frameTime;
@@ -102,8 +106,14 @@
 				// Apply the damage to the ship and check if it
 				// is dead.
 				if(ship.damage(30)){
+					_gameOver = true;
+					
 					//TODO: Destroy the ship
+					
 					//TODO: Show Game Over
+					
+					//TODO: Kill all enemies?
+					
 				}
 			}
 		}
