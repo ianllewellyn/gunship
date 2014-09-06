@@ -36,7 +36,7 @@
 			ctx.fillText(self._fps+' fps', 4, 27);
 			
 			var graph = self._graph;
-			var points = [];//[[0, 40]];
+			var points = [];
 			for(var i=0; i<graph.length; ++i){
 				points.push([i, 40-(graph[i]/2)]);
 			}

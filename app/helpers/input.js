@@ -22,6 +22,7 @@
 	// and released between two frames meaning that the keypress would not
 	// be registered.
 	document.addEventListener('keyup', function(e){
+		// console.log(e.keyCode);
 		delete _keys[e.keyCode];
 	});
 	
@@ -69,6 +70,11 @@
 		// space bar
 		fire: function(){
 			return _isDown([32]);
+		},
+		
+		// enter, space
+		restart: function(){
+			return _isDown([13, 32]);
 		},
 		
 		mouse: function(){

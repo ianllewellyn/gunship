@@ -51,7 +51,7 @@
 		var self = this;
 		
 		// Pick what we want from options passed in
-		self.initialize = options.initialize || function(){}
+		self.initialize = options.initialize || function(){};
 		self.update = options.update || function(){};
 		self.draw = options.draw || function(){};
 		self.canvas = options.canvas;
@@ -59,21 +59,18 @@
 		self.ctx = self.canvas.getContext('2d');
 		self.width = self.canvas.width;
 		self.height = self.canvas.height;
-		// self.assets = [];
-		self.assets = new AssetList();
 		
 		// Start the game loop
 		// Initialize the game and draw the initial frame.
+		self._initialized = false;
 		self.start = function(){
+			self.assets = new AssetList();
 			self.initialize(self.assets);
 			self.then = performance.now();
-			requestAnimationFrame(self._drawFrame);
-		}
-		
-		// Pause the game
-		self._stop = false;
-		self.stop = function(){
-			self._stop = true;
+			if(!self._initialized){
+				self._initialized = true;
+				requestAnimationFrame(self._drawFrame);
+			}
 		}
 		
 		self.then = 0;
@@ -82,8 +79,6 @@
 		
 		// Draw a frame of the game. Update all assets then draw them.
 		self._drawFrame = function(now){
-			if(self._stop)
-				return
 			
 			// Request the next frame draw
 			requestAnimationFrame(self._drawFrame);
@@ -110,10 +105,6 @@
 				// Update each of the assets then call the update callback.
 				// frameTime is passed into the update call so assets know how long
 				// since the last frame was updated and don't have to manage it themselves.
-				// self.assets.forEach(function(asset){
-				// 	if(asset.update)
-				// 		asset.update(frameTime, delta);
-				// });
 				self.assets.update(frameTime, delta);
 				self.update(frameTime, delta);
 				

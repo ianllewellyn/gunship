@@ -25,12 +25,14 @@
 			width: game.width,
 			height: game.height
 		}));
+		
 		assets.add(new FrameTimer());
 		
 		scoreBoard = new ScoreBoard({
 			bounds: bounds
 		});
 		assets.add(scoreBoard);
+		
 		ship = new Ship({
 			x: game.width/2,
 			y: game.height-135,
@@ -46,8 +48,16 @@
 	// Update anything in addition to registered assets
 	var update = function(frameTime){
 		
-		if(_gameOver)
-			return
+		if(_gameOver){
+			if(Input.restart()){
+				// console.log('restart');
+				
+				//TODO: Restart the dam game!
+				_gameOver = false;
+				game.start();
+			}
+			return;
+		}
 		
 		// Spawn enemies as time passes
 		enemyTime += frameTime;
