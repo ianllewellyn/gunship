@@ -6,8 +6,6 @@ Break multiplier when an enemy gets past.
 
 ## must have
 
-* An underlying ground grid so it looks like we're flying forward
-
 * Ship: Kill animation
 * Ship: Drop sparks after one hit
 * Ship: Rotor imbalance after two hits
@@ -27,6 +25,7 @@ Break multiplier when an enemy gets past.
 ## nice to have
 
 * Fix helicopter nose
+* Rear roter
 * Optimise app.update() to not loop through all enemies twice
 * Localstorage leaderboard
 * Limit the rotation of the cannon

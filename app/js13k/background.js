@@ -1,4 +1,28 @@
 (function(){
+	
+	var drawLine = function(ctx, startX, startY, endX, endY){
+	}
+	
+	var drawGrid = function(ctx, options){
+		var bounds = options.bounds;
+		var step = options.step;
+		var offset = options.offset;
+		
+		var verticalSteps = Math.floor(bounds.bottom / step);
+		
+		ctx.lineWidth = 1;
+		ctx.strokeStyle = 'rgba(80, 80, 80, 1)';
+		ctx.beginPath();
+		
+		var verticalSteps = Math.floor(bounds.bottom / step);
+		for(var i=0; i<verticalSteps; ++i){
+			var y = i*step + offset;
+			ctx.moveTo(bounds.left, y);
+			ctx.lineTo(bounds.right, y);
+		}
+		ctx.stroke();
+	}
+	
 	window.Background = function(options){
 		var self = this;
 		
@@ -6,18 +30,30 @@
 		self.width = options.width || 400;
 		self.height = options.height || 400;
 		
+		self.offset = 0;
+		
+		self.update = function(frameTime, delta){
+			self.offset += delta;
+			if(self.offset > 50)
+				self.offset -= 50;
+		}
+		
 		// Draw the background rect
 		self.draw = function(ctx){
 			ctx.fillStyle = '#000';
 			ctx.fillRect(0, 0, self.width, self.height);
 			
-			//REMOVE: Draw the bounds lines
-			// ctx.beginPath();
-			// ctx.moveTo(20, 0);
-			// ctx.lineTo(20, self.height);
-			// ctx.moveTo(self.width-20, 0);
-			// ctx.lineTo(self.width-20, self.height);
-			// ctx.stroke();
+			// Draw a grid on the bg
+			drawGrid(ctx, {
+				bounds: {
+					top: 0,
+					right: self.width,
+					bottom: self.height,
+					left: 0
+				},
+				step: 50,
+				offset: self.offset
+			});
 		}
 	}
 })();
