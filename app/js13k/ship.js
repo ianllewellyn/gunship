@@ -48,34 +48,35 @@
 		
 		// Update the position of the ship based on frameTime
 		self.update = function(frameTime, delta){
-			
-			self.updateRotor(delta);
-			self.updateMovement(delta);
-			self.updateCannon(delta);
-			
-			var lastFired = self._lastFired + frameTime;
-			var lastBurst = self._lastBurst + frameTime;
-			var burst = self._burst;
-			
-			// If the user has pressed fire then start a burst
-			if(Input.fire() && burst < 1 && lastBurst > BURST_DELAY){
-				burst = BURST_LENGTH;
-				lastBurst = 0;
+			if(self.health > 0){
+				self.updateRotor(delta);
+				self.updateMovement(delta);
+				self.updateCannon(delta);
+				
+				var lastFired = self._lastFired + frameTime;
+				var lastBurst = self._lastBurst + frameTime;
+				var burst = self._burst;
+				
+				// If the user has pressed fire then start a burst
+				if(Input.fire() && burst < 1 && lastBurst > BURST_DELAY){
+					burst = BURST_LENGTH;
+					lastBurst = 0;
+				}
+				
+				// If there is one or more rounds in the burst then
+				// fire a new one if we have waited long enough between
+				// rounds.
+				if(burst > 0 && lastFired > ROUND_DELAY){
+					self.fire();
+					--burst;
+					lastFired = 0;
+				}
+				
+				// Store the values for next time
+				self._lastFired = lastFired;
+				self._lastBurst = lastBurst;
+				self._burst = burst;
 			}
-			
-			// If there is one or more rounds in the burst then
-			// fire a new one if we have waited long enough between
-			// rounds.
-			if(burst > 0 && lastFired > ROUND_DELAY){
-				self.fire();
-				--burst;
-				lastFired = 0;
-			}
-			
-			// Store the values for next time
-			self._lastFired = lastFired;
-			self._lastBurst = lastBurst;
-			self._burst = burst;
 		}
 		
 		self.updateCannon = function(delta){
