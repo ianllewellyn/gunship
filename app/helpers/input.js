@@ -72,9 +72,9 @@
 			return _isDown([32]);
 		},
 		
-		// enter, space
+		// enter
 		restart: function(){
-			return _isDown([13, 32]);
+			return _isDown([13]);
 		},
 		
 		mouse: function(){
