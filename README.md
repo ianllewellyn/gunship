@@ -6,9 +6,6 @@ Break multiplier when an enemy gets past.
 
 ## must have
 
-* Ship: Fix nose
-* Ship: Rear roter
-* Ship: Make smaller
 * Ship: Drop sparks after one hit
 * Ship: Rotor imbalance after two hits
 * Ship: Kill animation
@@ -34,6 +31,7 @@ Break multiplier when an enemy gets past.
 * Code: Composit bitmap data instead of drawing vectors each frame
 * Code: Make particle and bullets share code
 
+* Ship: Make smaller
 * Ship: Limit the rotation of the cannon
 * Ship: Make the ship bob up and down to show motion
 * Ship: Have the cannon push the helicopter backwards when it fires
