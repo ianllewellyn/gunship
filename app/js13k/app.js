@@ -89,7 +89,7 @@
 			}
 		}
 		
-		// If check if the enemy bounds hits the ship
+		// Check if the enemy bounds hits the ship
 		for(var i=0; i<enemies.length; ++i){
 			var enemy = enemies[i];
 			if(ship.hits(enemy)){
@@ -106,17 +106,34 @@
 				// Apply the damage to the ship and check if it
 				// is dead.
 				if(ship.damage(30)){
-					_gameOver = true;
-					
-					//TODO: Destroy the ship
-					
-					//TODO: Show Game Over
-					
-					//TODO: Kill all enemies?
-					
+					gameOver();
+					return;
 				}
 			}
 		}
+	}
+	
+	var gameOver = function(){
+		_gameOver = true;
+		
+		// Kill all enemies
+		var enemies = window.Enemy.instances;
+		for(var i=0; i<enemies.length; ++i){
+			var enemy = enemies[i];
+			enemy.destroy({
+				explode: true,
+				x: enemy.x,
+				y: enemy.y,
+				speed: 5,
+				angle: 0,
+				angleVariation: 6.28
+			});
+		}
+		
+		//TODO: Destroy the ship
+		
+		//TODO: Show Game Over
+		
 	}
 	
 	// Draw anything in addition to registered assets

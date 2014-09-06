@@ -28,6 +28,7 @@ Break multiplier when an enemy gets past.
 ## nice to have
 
 * Fix helicopter nose
+* Optimise app.update() to not loop through all enemies twice
 * Localstorage leaderboard
 * Limit the rotation of the cannon
 * Make the ship bob up and down to show motion
