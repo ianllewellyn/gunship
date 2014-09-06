@@ -35,7 +35,5 @@ Break multiplier when an enemy gets past.
 * Ship: Make smaller?
 
 * Game: Localstorage leaderboard
-* Game: Particles inflict damage on enemies?
-* Game: Bounce particles off the canvas edges
-* Game: Explode bullets off screen edges
 * Game: Sounds!!
+* Game: Particles inflict damage on enemies? Not so sure they should

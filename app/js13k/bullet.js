@@ -35,7 +35,7 @@
 			
 			// Remove if we have traveled out of bounds
 			if(x < bounds.left || x > bounds.right || y < bounds.top || y > bounds.bottom){
-				self.destroy()
+				self.destroy({explode: true});
 			}
 		}
 		
@@ -51,9 +51,25 @@
 			ctx.stroke();
 		}
 		
-		self.destroy = function(){
+		self.destroy = function(options){
 			window.Bullet.instances.splice(window.Bullet.instances.indexOf(self), 1);
 			self.assetList.remove(self);
+			
+			// Particle explosion that bounces off the screen
+			if(options && options.explode){
+				for(var i=0; i<5; ++i){
+					self.assetList.add(new Particle({
+						x: self.x,
+						y: self.y,
+						speed: self.speed,
+						speedVariation: 2.5,
+						angle: self.angle,
+						angleVariation: 2,
+						bounds: self.bounds
+						,life: 500
+					}));
+				}
+			}
 		}
 		
 		self.hits = function(target){
