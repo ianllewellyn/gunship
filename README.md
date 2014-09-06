@@ -22,9 +22,12 @@ Break multiplier when an enemy gets past.
 * Powerup: Double damage
 * Weapon: Homing rockets
 
+* A start screen with controls etc
+
 ## nice to have
 
 * Fix helicopter nose
+* Make the helicopter smaller
 * Rear roter
 * Optimise app.update() to not loop through all enemies twice
 * Localstorage leaderboard

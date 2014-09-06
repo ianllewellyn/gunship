@@ -50,4 +50,24 @@
 		ctx.stroke();
 	}
 	
+	// Helper function to draw a grid in a bounding box
+	window.drawGrid = function(ctx, options){
+		var bounds = options.bounds;
+		var step = options.step;
+		var offset = options.offset;
+		
+		var verticalSteps = Math.floor(bounds.bottom / step);
+		
+		ctx.lineWidth = 1;
+		ctx.strokeStyle = 'rgba(80, 80, 80, 1)';
+		ctx.beginPath();
+		
+		var verticalSteps = Math.floor(bounds.bottom / step);
+		for(var i=0; i<verticalSteps; ++i){
+			var y = i*step + offset;
+			ctx.moveTo(bounds.left, y);
+			ctx.lineTo(bounds.right, y);
+		}
+		ctx.stroke();
+	}
 })();

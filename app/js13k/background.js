@@ -1,28 +1,5 @@
 (function(){
 	
-	var drawLine = function(ctx, startX, startY, endX, endY){
-	}
-	
-	var drawGrid = function(ctx, options){
-		var bounds = options.bounds;
-		var step = options.step;
-		var offset = options.offset;
-		
-		var verticalSteps = Math.floor(bounds.bottom / step);
-		
-		ctx.lineWidth = 1;
-		ctx.strokeStyle = 'rgba(80, 80, 80, 1)';
-		ctx.beginPath();
-		
-		var verticalSteps = Math.floor(bounds.bottom / step);
-		for(var i=0; i<verticalSteps; ++i){
-			var y = i*step + offset;
-			ctx.moveTo(bounds.left, y);
-			ctx.lineTo(bounds.right, y);
-		}
-		ctx.stroke();
-	}
-	
 	window.Background = function(options){
 		var self = this;
 		
