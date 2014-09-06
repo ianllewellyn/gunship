@@ -47,23 +47,14 @@
 		self.health = 3;
 		
 		var createParticle = function(x, y){
-			
-			var allColors = [
-				[255, 185, 56], // Orange
-				[255, 255, 128]//, // Yellow
-			];
-			var color = allColors[Math.floor(Math.random() * allColors.length)];
-			
 			self.assetList.add(new Particle({
 				x: x,
 				y: y,
 				speed: 3,
 				speedVariation: 1,
-				// angle: 4.75,
 				angle: 5,
 				angleVariation: 1.5,
 				bounds: self.bounds,
-				color: color,
 				life: 1000,
 				particleLength: 7
 			}));
@@ -106,11 +97,11 @@
 				if(self.health < 3){
 					
 					self._particleTime += frameTime;
-					if(self._particleTime > 200){
-						self._particleTime -= 200;
+					if(self._particleTime > 100){
+						self._particleTime -= 100;
 						
 						// Throw particles from the main roter if we're on 2 health
-						var num = self.health < 2 ? 6 : 1;
+						var num = self.health < 2 ? 3 : 1;
 						for(var i=0; i<num; ++i){
 							createParticle(self.x, self.y+40);
 						}
