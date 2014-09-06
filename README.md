@@ -8,8 +8,8 @@ Break multiplier when an enemy gets past.
 
 * Game: Score multiplier - Multiplier rises for each 10 kills until you miss an enemy
 
-* Enemies with 2 circles (2 hits)
-* Enemies with 3 circles (3 hits)
+* Enemies: 2 circles (2 hits)
+* Enemies: 3 circles (3 hits)
 
 * Powerup: 5 round burst
 * Powerup: Armour peircing
@@ -17,9 +17,8 @@ Break multiplier when an enemy gets past.
 * Powerup: Faster rounds
 * Powerup: Double damage
 
-* Weapon: Homing rockets
-
 * Game: A start screen with controls etc
+* Game: Pause button
 
 ## nice to have
 
@@ -33,6 +32,8 @@ Break multiplier when an enemy gets past.
 * Ship: Have the cannon push the helicopter backwards when it fires
 * Ship: Rotate the ship a little when it moves left/right
 * Ship: Make smaller?
+
+* Weapon: Homing rockets
 
 * Game: Localstorage leaderboard
 * Game: Sounds!!
