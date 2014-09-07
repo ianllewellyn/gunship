@@ -95,6 +95,7 @@
 				var bullet = bullets[r];
 				
 				if(bullet.hits(enemy)){
+					bullet.destroy();
 					if(enemy.damage(30)){
 						enemy.destroy({
 							explode: true,
@@ -106,10 +107,9 @@
 						// If an enemy is destroyed then we don't need to check collisions
 						// against the rest of the bullets.
 						destroyed = true;
+						scoreModel.add(10);
 						break;
 					}
-					bullet.destroy();
-					scoreModel.add(10);
 				}
 			}
 			
@@ -179,7 +179,6 @@
 		initialize: initialize,
 		update: update,
 		draw: draw
-		// ,fps: 30
 	});
 	game.start();
 })();
