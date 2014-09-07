@@ -12,6 +12,7 @@
 		self.add = function(asset){
 			asset.assetList = self;
 			self._assets.push(asset);
+			return asset;
 		}
 		
 		// Remove an asset
@@ -19,6 +20,7 @@
 			var i = self._assets.indexOf(asset);
 			if(i > -1)
 				self._assets.splice(i, 1);
+			return asset;
 		}
 		
 		// Update all assets
@@ -107,7 +109,7 @@
 				// frameTime is passed into the update call so assets know how long
 				// since the last frame was updated and don't have to manage it themselves.
 				assets.update(frameTime, delta);
-				self.update(frameTime, delta);
+				self.update(frameTime, 1);
 				
 				// Clear the canvas before calling draw() on each asset
 				ctx.clearRect(0, 0, 400, 400);

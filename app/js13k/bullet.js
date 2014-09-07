@@ -73,7 +73,7 @@
 		}
 		
 		self.hits = function(target){
-			var enemy = target.getRect()
+			var enemy = target.getRect();
 			var x = self.x;
 			var y = self.y;
 			

@@ -8,20 +8,31 @@
 	
 	var SPAWN_TIME = 2000;
 	
-	var scoreBoard, ship, scoreModel;
+	// The ship
+	var ship;
+	
+	// The score model that we add points to when an enemy is killed
+	var scoreModel;
+	
+	// The time that has passed since the last enemy was spawned
+	var enemyTime = 0;
+	
+	// If we're in the game over state
+	var _gameOver = false;
 	
 	// Initialize is passed an array of game assets. Add
 	// to this array to automatically update and draw them
 	// each frame.
 	var initialize = function(assets){
+		
+		scoreModel = new ScoreModel();
+		
 		var bounds = {
 			top: 0,
 			right: game.width,
 			bottom: game.height,
 			left: 0
 		};
-		
-		scoreModel = new ScoreModel();
 		
 		assets.add(new Background({
 			width: game.width,
@@ -30,36 +41,23 @@
 		
 		assets.add(new FrameTimer());
 		
-		scoreBoard = new ScoreBoard({
+		assets.add(new ScoreBoard({
 			bounds: bounds,
 			scoreModel: scoreModel
-		});
-		assets.add(scoreBoard);
+		}));
 		
-		ship = new Ship({
+		ship = assets.add(new Ship({
 			x: game.width/2,
 			y: game.height-135,
 			bounds: bounds
-		});
-		assets.add(ship);
+		}));
 	}
-	
-	var resetMultiplier = function(){
-		scoreModel.resetMultiplier();
-	}
-	
-	// The time that has passed since the last enemy was spawned
-	var enemyTime = 0;
-	var _gameOver = false;
 	
 	// Update anything in addition to registered assets
 	var update = function(frameTime){
 		
 		if(_gameOver){
 			if(Input.restart()){
-				// console.log('restart');
-				
-				//TODO: Restart the dam game!
 				_gameOver = false;
 				game.start();
 			}
@@ -79,18 +77,23 @@
 					bottom: game.height+20,
 					left: 0
 				},
-				escaped: resetMultiplier
+				escaped: scoreModel.resetMultiplier
 			}));
 		}
 		
-		// Run through each bullet and check for collisions with
-		// each enemy
 		var bullets = Bullet.instances;
 		var enemies = Enemy.instances;
-		for(var i=bullets.length-1; i>-1; --i){
-			var bullet = bullets[i];
-			for(var r=enemies.length-1; r>-1; --r){
-				var enemy = enemies[r];
+		
+		// Run through each enemy to check for both bullet and ship collisions.
+		// Doing this in the same loop saves on CPU time.
+		for(var i=enemies.length-1; i>-1; --i){
+			var enemy = enemies[i];
+			var destroyed = false;
+			
+			// Check if any bullets hit them
+			for(var r=bullets.length-1; r>-1; --r){
+				var bullet = bullets[r];
+				
 				if(bullet.hits(enemy)){
 					if(enemy.damage(30)){
 						enemy.destroy({
@@ -100,16 +103,20 @@
 							x: bullet.x,
 							y: bullet.y
 						});
+						// If an enemy is destroyed then we don't need to check collisions
+						// against the rest of the bullets.
+						destroyed = true;
+						break;
 					}
 					bullet.destroy();
 					scoreModel.add(10);
 				}
 			}
-		}
-		
-		// Check if the enemy bounds hits the ship
-		for(var i=enemies.length-1; i>-1; --i){
-			var enemy = enemies[i];
+			
+			// This enemy has been killed then don't check it for ship collisions
+			if(destroyed) continue;
+			
+			// Check if they hit the ship
 			if(ship.hits(enemy)){
 				enemy.destroy({
 					explode: true,
@@ -129,7 +136,7 @@
 				}
 			}
 		}
-	}
+	};
 	
 	var gameOver = function(){
 		_gameOver = true;
@@ -161,10 +168,10 @@
 			},
 			scoreModel: scoreModel
 		}));
-	}
+	};
 	
 	// Draw anything in addition to registered assets
-	var draw = function(ctx){}
+	var draw = function(ctx){};
 	
 	// Start the game loop
 	var game = new GameLoop({

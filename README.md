@@ -14,6 +14,7 @@ before: 6,898 bytes
 draw.js: 16431 > 6367
 effects.js: 16431 > 6367
 game_loop.js: 17161 > 6817
+app.ja: 17303 > 6842
 
 ## must have
 
@@ -31,7 +32,6 @@ game_loop.js: 17161 > 6817
 
 ## nice to have
 
-* Code: Optimise app.update() to not loop through all enemies twice
 * Code: Composit bitmap data instead of drawing vectors each frame
 * Code: Make particle and bullets share code
 
