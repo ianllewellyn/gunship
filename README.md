@@ -4,7 +4,11 @@ Score points by shooting enemies.
 
 Die when you are hit 3 times.
 
-Break multiplier when an enemy gets past.
+Kill 10 enemies to increase your score multiplier.
+
+Multiplier is reset if an enemy escapes.
+
+You can use your ship to hit an enemy to keep your multiplier.
 
 ## must have
 
@@ -40,3 +44,4 @@ Break multiplier when an enemy gets past.
 * Game: Localstorage leaderboard
 * Game: Sounds!!
 * Game: Particles inflict damage on enemies? Not so sure they should
+* Game: Kill everything when your ship is hit?

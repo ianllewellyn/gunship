@@ -8,7 +8,7 @@
 	
 	var SPAWN_TIME = 2000;
 	
-	var scoreBoard, ship;
+	var scoreBoard, ship, scoreModel;
 	
 	// Initialize is passed an array of game assets. Add
 	// to this array to automatically update and draw them
@@ -21,6 +21,8 @@
 			left: 0
 		};
 		
+		scoreModel = new ScoreModel();
+		
 		assets.add(new Background({
 			width: game.width,
 			height: game.height
@@ -29,7 +31,8 @@
 		assets.add(new FrameTimer());
 		
 		scoreBoard = new ScoreBoard({
-			bounds: bounds
+			bounds: bounds,
+			scoreModel: scoreModel
 		});
 		assets.add(scoreBoard);
 		
@@ -94,7 +97,7 @@
 						});
 					}
 					bullet.destroy();
-					scoreBoard.score += 10;
+					scoreModel.add(10);
 				}
 			}
 		}
@@ -111,7 +114,7 @@
 					angle: 0,
 					angleVariation: 6.28
 				});
-				scoreBoard.score += 10;
+				scoreModel.add(10);
 				
 				// Apply the damage to the ship and check if it
 				// is dead.
@@ -151,7 +154,7 @@
 				bottom: game.height,
 				left: 0
 			},
-			score: scoreBoard.score
+			scoreModel: scoreModel
 		}));
 	}
 	

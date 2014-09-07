@@ -3,14 +3,13 @@
 		var self = this;
 		
 		self.bounds = options.bounds;
-		self.score = 0;
-		
-		self.update = function(frameTime, delta){}
+		self.scoreModel = options.scoreModel;
 		
 		self.draw = function(ctx){
 			ctx.fillStyle = '#fff';
 			ctx.font = '12px Arial';
-			ctx.fillText(self.score, self.bounds.right-30, 30);
+			ctx.textAlign = 'right';
+			ctx.fillText(self.scoreModel.multiplier()+'x'+'   '+self.scoreModel.score(), self.bounds.right-20, 30);
 		}
 	}
 })();

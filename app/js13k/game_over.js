@@ -3,7 +3,7 @@
 		var self = this;
 		
 		self.bounds = options.bounds;
-		self.score = options.score || 0;
+		self.scoreModel = options.scoreModel;
 		self.x = self.bounds.right/2;
 		self.y = self.bounds.bottom/2-30;
 		
@@ -29,7 +29,7 @@
 			ctx.fillText('Game Over', x, y);
 			
 			ctx.font = '18px Arial';
-			ctx.fillText('Score: '+self.score, x, y+30);
+			ctx.fillText('Score: '+self.scoreModel.score(), x, y+30);
 			
 			ctx.font = '18px Arial';
 			ctx.fillText("Press 'Enter' to try again", x, y+60);
