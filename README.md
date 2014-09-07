@@ -13,6 +13,7 @@ You can use your ship to hit an enemy to keep your multiplier.
 before: 6,898 bytes
 draw.js: 16431 > 6367
 effects.js: 16431 > 6367
+game_loop.js: 17161 > 6817
 
 ## must have
 

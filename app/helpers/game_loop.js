@@ -1,5 +1,7 @@
 (function(){
 	
+	var TARGET_DELTA = 60/1000;
+	
 	// A collection for managing assets in the game loop.
 	var AssetList = function(){
 		var self = this;
@@ -15,10 +17,8 @@
 		// Remove an asset
 		self.remove = function(asset){
 			var i = self._assets.indexOf(asset);
-			if(i > -1){
-				// asset.destroy();
+			if(i > -1)
 				self._assets.splice(i, 1);
-			}
 		}
 		
 		// Update all assets
@@ -50,12 +50,9 @@
 	window.GameLoop = function(options){
 		var self = this;
 		
-		// Pick what we want from options passed in
-		self.initialize = options.initialize || function(){};
-		self.update = options.update || function(){};
-		self.draw = options.draw || function(){};
-		self.canvas = options.canvas;
-		self.fps = options.fps;
+		// Extend this with options passed in
+		extend(self, options);
+		
 		self.ctx = self.canvas.getContext('2d');
 		self.width = self.canvas.width;
 		self.height = self.canvas.height;
@@ -91,6 +88,8 @@
 			// the target fps. Crude but ok for testing. It can't be used to lock to 30FPS
 			// for example, you MIGHT get 30FPS, but more likely it will be less.
 			if(!self.fps || frameTime > self._interval){
+				var ctx = self.ctx;
+				var assets = self.assets;
 				
 				if(self.fps){
 					self.then = now - (frameTime % self._interval);
@@ -102,18 +101,18 @@
 				// Code it written to run at 60FPS so elements need to change their behaviour
 				// and speed based on the actual running frame rate. Delta is a multiplier
 				// that allows them to do that.
-				var delta = (60/1000) * frameTime;
+				var delta = TARGET_DELTA * frameTime;
 				
 				// Update each of the assets then call the update callback.
 				// frameTime is passed into the update call so assets know how long
 				// since the last frame was updated and don't have to manage it themselves.
-				self.assets.update(frameTime, delta);
+				assets.update(frameTime, delta);
 				self.update(frameTime, delta);
 				
 				// Clear the canvas before calling draw() on each asset
-				self.ctx.clearRect(0, 0, 400, 400);
-				self.assets.draw(self.ctx);
-				self.draw(self.ctx);
+				ctx.clearRect(0, 0, 400, 400);
+				assets.draw(ctx);
+				self.draw(ctx);
 			}
 		}
 	}
