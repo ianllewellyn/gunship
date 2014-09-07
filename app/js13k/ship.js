@@ -30,7 +30,7 @@
 		options = options || {};
 		self.x = options.x || 0;
 		self.y = options.y || 0;
-		self.bounds = options.bounds || {top: 0, right: 0, bottom: 0, left: 0};
+		self.bounds = options.bounds;
 		
 		self._rotation = 0;
 		self._acceleration = 0.2;
@@ -43,7 +43,7 @@
 		self._bulletX = undefined;
 		self._bulletY = undefined;
 		
-		// Health is set to 90 to start
+		// Health is set to 3 to start, each hit removes 1 hp
 		self.health = 3;
 		
 		var createParticle = function(x, y){
@@ -169,15 +169,20 @@
 				}
 			}
 			
-			// Calculate the new x position while respecting bounds
+			// Calculate the new x position
 			var newX = self.x + (motion * delta);
-			// var newX = this.x + motion;
-			if(newX > bounds.right){
+			
+			// Adjust the bounds by 30px to stop the ship moving half off the screen
+			var boundsLeft = self.bounds.left + 30;
+			var boundsRight = self.bounds.right - 30;
+			
+			// Respect bounds
+			if(newX > boundsRight){
 				motion = 0;
-				newX = bounds.right;
-			}else if(newX < bounds.left){
+				newX = boundsRight;
+			}else if(newX < boundsLeft){
 				motion = 0;
-				newX = bounds.left;
+				newX = boundsLeft;
 			}
 			
 			// Update the x position

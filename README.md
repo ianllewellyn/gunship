@@ -1,7 +1,9 @@
 # gunship
 
 Score points by shooting enemies.
+
 Die when you are hit 3 times.
+
 Break multiplier when an enemy gets past.
 
 ## must have
