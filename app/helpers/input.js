@@ -10,9 +10,12 @@
 // 	}
 (function(){
 	
+	var _keys = {};
+	var _mouseX = 0;
+	var _mouseY = 0;
+	
 	// Listen to keydown and keyup events to keep a map of all
 	// currently pressed keys
-	var _keys = {};
 	document.addEventListener('keydown', function(e){
 		_keys[e.keyCode] = true;
 	});
@@ -25,16 +28,16 @@
 	});
 	
 	// Listen to for mousedown event and keep a map of it like we down with
-	// key downs
+	// keydown events.
 	document.addEventListener('mousedown', function(e){
-		_keys['mousedown'] = true;
+		_keys['leftmouse'] = true;
 	});
 	document.addEventListener('mouseup', function(e){
-		delete _keys['mousedown'];
+		delete _keys['leftmouse'];
 	});
 	
-	var _mouseX = 0;
-	var _mouseY = 0;
+	// Listen to mousemove, storing the coordinates as we are ready to return
+	// them from Input.mouse() method whenever it is called.
 	document.addEventListener('mousemove', function(e){
 		_mouseX = e.clientX;
 		_mouseY = e.clientY;
@@ -74,7 +77,7 @@
 		
 		// space bar, left mouse
 		fire: function(){
-			return _isDown([32, 'mousedown']);
+			return _isDown([32, 'leftmouse']);
 		},
 		
 		// enter
