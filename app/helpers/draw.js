@@ -30,7 +30,7 @@
 		ctx.arc(x, y, r, 0, 2*Math.PI);
 		
 		if(fill == true) ctx.fill();
-		if(stroke == true) ctx.stroke();
+		if(stroke !== false) ctx.stroke();
 	}
 	
 	// Helper function for drawing arcs
