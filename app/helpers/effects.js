@@ -15,7 +15,7 @@
 				audio.src = jsfxr(el);
 				this.sounds[key][index].pool.push(audio);
 			}
-		}, this);;
+		}, this);
 	};
 	Effects.prototype.play = function(key){
 		var sound = this.sounds[key];
@@ -23,5 +23,5 @@
 		soundData.pool[soundData.tick].play();
 		soundData.tick < soundData.count-1 ? soundData.tick++ : soundData.tick = 0;
 	};
-	window.Effects = new Effects()
+	window.Effects = new Effects();
 })();

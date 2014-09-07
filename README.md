@@ -11,7 +11,8 @@ Multiplier is reset if an enemy escapes.
 You can use your ship to hit an enemy to keep your multiplier.
 
 before: 6,898 bytes
-draw.js: 6,367 bytes
+draw.js: 16431 > 6367
+effects.js: 16431 > 6367
 
 ## must have
 
