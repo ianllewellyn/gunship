@@ -12,8 +12,6 @@ You can use your ship to hit an enemy to keep your multiplier.
 
 ## must have
 
-* Game: Score multiplier - Multiplier rises for each 10 kills until you miss an enemy
-
 * Enemies: 2 circles (2 hits)
 * Enemies: 3 circles (3 hits)
 
@@ -43,5 +41,8 @@ You can use your ship to hit an enemy to keep your multiplier.
 
 * Game: Localstorage leaderboard
 * Game: Sounds!!
-* Game: Particles inflict damage on enemies? Not so sure they should
+* Game: Display total enemies killed on the Game Over screen
+* Game: Display highest multiplier on the Game Over screen
+* Game: Display bullets fired on the Game Over screen
 * Game: Kill everything when your ship is hit?
+* Game: Particles inflict damage on enemies? Not so sure they should

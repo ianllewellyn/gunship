@@ -8,6 +8,7 @@
 		self.y = options.y;
 		self.bounds = options.bounds;
 		self.speed = options.speed || 2;
+		self.escaped = options.escaped;
 		
 		// Health is set to 30 to start for a simple enemy
 		self.health = 30;
@@ -16,9 +17,11 @@
 			var bounds = self.bounds;
 			var y = self.y += (self.speed * delta);
 			
-			// Remove if we have traveled out of bounds
+			// If we have traveled out of bounds then call the escaped callback
+			// and remove to remove from the game loop and clean up references.
 			if(y < bounds.top || y > bounds.bottom){
-				self.destroy()
+				if(self.escaped) self.escaped();
+				self.destroy();
 			}
 		}
 		
@@ -51,6 +54,10 @@
 						,life: 500
 					}));
 				}
+			}
+			
+			for(var k in self){
+				delete self[k];
 			}
 		}
 		

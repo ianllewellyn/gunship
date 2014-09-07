@@ -44,6 +44,10 @@
 		assets.add(ship);
 	}
 	
+	var resetMultiplier = function(){
+		scoreModel.resetMultiplier();
+	}
+	
 	// The time that has passed since the last enemy was spawned
 	var enemyTime = 0;
 	var _gameOver = false;
@@ -74,7 +78,8 @@
 					right: game.width,
 					bottom: game.height+20,
 					left: 0
-				}
+				},
+				escaped: resetMultiplier
 			}));
 		}
 		
