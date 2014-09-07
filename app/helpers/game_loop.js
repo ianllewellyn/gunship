@@ -40,15 +40,6 @@
 		}
 	};
 	
-	// A simple game loop
-	//
-	// {
-	// 		canvas: Canvas
-	// 		initialize: function(assets){}
-	// 		update: function(frameTime){}
-	// 		draw: function(ctx){}
-	//		fps: int
-	// }
 	window.GameLoop = function(options){
 		var self = this;
 		
@@ -59,63 +50,60 @@
 		self.width = self.canvas.width;
 		self.height = self.canvas.height;
 		
+		self._running = false;
+		
+		self._lastUpdate = 0;
+		
 		// Start the game loop
-		// Initialize the game and draw the initial frame.
-		self._animating = false;
+		// Initialize the game and queue an update to start the loop
 		self.start = function(){
 			self.assets = new AssetList();
 			self.initialize(self.assets);
-			self.then = performance.now();
 			
-			// Only kick off the requestAnimationFrame animation loop once
-			if(!self._animating){
-				self._animating = true;
-				requestAnimationFrame(self._drawFrame);
+			// Only queue an update if there isn't already one
+			if(!self._running){
+				self._running = true;
+				self._queueUpdate();
 			}
 		}
 		
-		self.then = 0;
-		if(self.fps)
-			self._interval = 1000 / self.fps;
+		// Queue an update
+		self._queueUpdate = function(){
+			setTimeout(self._update, 0);
+		}
 		
-		// Draw a frame of the game. Update all assets then draw them.
-		self._drawFrame = function(now){
+		// Queue a draw
+		self._queueDraw = function(){
+			window.requestAnimationFrame(self._draw);
+		}
+		
+		// Update game logic
+		self._update = function(){
 			
-			// Request the next frame draw
-			requestAnimationFrame(self._drawFrame);
+			var now = performance.now();
+			var frameTime = now - self._lastUpdate;
+			var delta = TARGET_DELTA * frameTime;
+			self._lastUpdate = now;
 			
-			var frameTime = now - self.then;
-			// This is a frame rate limiter for testing. If there is a target fps
-			// then we make sure that we don't update and draw assets more often than
-			// the target fps. Crude but ok for testing. It can't be used to lock to 30FPS
-			// for example, you MIGHT get 30FPS, but more likely it will be less.
-			if(!self.fps || frameTime > self._interval){
-				var ctx = self.ctx;
-				var assets = self.assets;
-				
-				if(self.fps){
-					self.then = now - (frameTime % self._interval);
-				}else{
-					self.then = now;
-				}
-				
-				// Work out the delta based on a 60FPS Target.
-				// Code it written to run at 60FPS so elements need to change their behaviour
-				// and speed based on the actual running frame rate. Delta is a multiplier
-				// that allows them to do that.
-				var delta = TARGET_DELTA * frameTime;
-				
-				// Update each of the assets then call the update callback.
-				// frameTime is passed into the update call so assets know how long
-				// since the last frame was updated and don't have to manage it themselves.
-				assets.update(frameTime, delta);
-				self.update(frameTime, 1);
-				
-				// Clear the canvas before calling draw() on each asset
-				ctx.clearRect(0, 0, 400, 400);
-				assets.draw(ctx);
-				self.draw(ctx);
-			}
+			// Update each game asset and the passed in callback
+			self.assets.update(frameTime, delta);
+			self.update(frameTime, delta);
+			
+			//TODO: Clear pressed keys from the input manager
+			
+			// Queue the next draw
+			self._queueDraw();
+		}
+		
+		// Draw a frame
+		self._draw = function(now){
+			
+			// Draw each game asset and update the passed in callback
+			self.assets.draw(self.ctx);
+			self.draw();
+			
+			// Queue the next update
+			self._queueUpdate();
 		}
 	}
 })();

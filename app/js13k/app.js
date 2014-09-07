@@ -39,7 +39,9 @@
 			height: game.height
 		}));
 		
-		assets.add(new FrameTimer());
+		assets.add(new FrameTimer({
+			bounds: bounds
+		}));
 		
 		assets.add(new ScoreBoard({
 			bounds: bounds,
