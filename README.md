@@ -12,8 +12,11 @@ You can use your ship to hit an enemy to keep your multiplier.
 
 ## must have
 
-* Enemies: 2 circles (2 hits)
-* Enemies: 3 circles (3 hits)
+* Enemy: Randomise (and increase) enemy spawn speed
+* Enemy: A small enemy
+* Enemy: Add an enemy that bobs round
+* Enemy: An enemy that contains multiple smaller ones that are released when the container is broken
+* Enemy: Make them look more interesting, oval and rotating?
 
 * Powerup: 5 round burst
 * Powerup: Armour peircing
@@ -36,7 +39,7 @@ You can use your ship to hit an enemy to keep your multiplier.
 * Ship: Rotate the ship a little when it moves left/right
 * Ship: Make smaller?
 
-* Weapon: Homing rockets
+* Weapon: Homing rockets?
 
 * Game: Localstorage leaderboard
 * Game: Sounds!!

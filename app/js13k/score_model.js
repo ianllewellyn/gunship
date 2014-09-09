@@ -1,12 +1,16 @@
 (function(){
-	window.ScoreModel = function(){
+	window.ScoreModel = function(options){
 		var self = this;
 		
 		self._points = 0;
 		self._multiplier = 1;
 		self._maxMultiplier = 10;
-		self._threshold = 10;
-		self._enemyChain = self._threshold;
+		self._enemyChain = self._threshold = 10;
+		self._totalEnemies = 0;
+		
+		self._difficultyLevel = 0;
+		self._difficultyChain = 0;
+		self.increaseDifficulty = options.increaseDifficulty;
 		
 		// Get the multiplier
 		self.multiplier = function(){
@@ -34,6 +38,22 @@
 				++self._multiplier;
 				self._enemyChain = self._threshold;
 			}
+			
+			// Increment the total enemies
+			++self._totalEnemies;
+			
+			// When the total enemies killed gets past a
+			// threshold then callback to make enemies more
+			// difficult
+			if(++self._difficultyChain == 10){
+				self._difficultyChain = 0;
+				++self._difficultyLevel;
+				if(self.increaseDifficulty)
+					self.increaseDifficulty(self._difficultyLevel);
+			}
+			
+			//TODO: If the user gets a kill streak of 15 then
+			// callback to give an upgrade
 		}
 	}
 })();

@@ -19,6 +19,7 @@
 			// and remove to remove from the game loop and clean up references.
 			if(y < bounds.top || y > bounds.bottom){
 				if(self.escaped) self.escaped();
+				self.health = 0;
 				self.destroy();
 			}
 		}

@@ -20,12 +20,48 @@
 	// If we're in the game over state
 	var _gameOver = false;
 	
+	// An array of enemy type variations that can be selected from
+	// when spawning a new one
+	var _enemyTypes;
+	
+	// All the possible enemy types in order of difficulty
+	var _allEnemyTypes = [
+		{
+			health: 1
+		},
+		{
+			health: 2
+		},
+		{
+			health: 3
+		},
+		{
+			health: 4
+		},
+		{
+			health: 5
+		}
+	];
+	
 	// Initialize is passed an array of game assets. Add
 	// to this array to automatically update and draw them
 	// each frame.
 	var initialize = function(assets){
 		
-		scoreModel = new ScoreModel();
+		// Set the initial possible enemy type including the
+		// first enemy only
+		_enemyTypes = [_allEnemyTypes[0]];
+		
+		scoreModel = new ScoreModel({
+			// When increaseDifficulty is called add the next difficulty enemy
+			// to the enemy types pool. This runs through each enemy index as
+			// difficultyLevel increments one each callback. If we run out of
+			// enemies to add then the last (most difficult) enemy will be
+			// added again to increase the likelyhood of it being selected.
+			increaseDifficulty: function(difficultyLevel){
+				_enemyTypes.push(_allEnemyTypes[Math.min(_allEnemyTypes.length-1, difficultyLevel)]);
+			}
+		});
 		
 		var bounds = {
 			top: 0,
@@ -71,11 +107,9 @@
 		if(enemyTime > SPAWN_TIME){
 			enemyTime -= SPAWN_TIME;
 			
-			//TODO: Decide what health the enemies should be created with?
-			// Make a random enemy, but add higher health number for each
-			// 10 enemies killed?
-			
-			game.assets.add(new Enemy({
+			// Pick a random enemy from the pool, this pool gets more difficult
+			// enemies added over time as more enemies are killed.
+			var options = extend({
 				x: (Math.random() * (game.width-40)) + 20,
 				y: -20,
 				bounds: {
@@ -84,9 +118,10 @@
 					bottom: game.height+20,
 					left: 0
 				},
-				escaped: scoreModel.resetMultiplier,
-				health: 1
-			}));
+				escaped: scoreModel.resetMultiplier
+			}, _enemyTypes[Math.floor(Math.random() * (_enemyTypes.length))]);
+			
+			game.assets.add(new Enemy(options));
 		}
 		
 		var bullets = Bullet.instances;
