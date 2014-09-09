@@ -10,12 +10,6 @@ Multiplier is reset if an enemy escapes.
 
 You can use your ship to hit an enemy to keep your multiplier.
 
-before: 6,898 bytes
-draw.js: 16431 > 6367
-effects.js: 16431 > 6367
-game_loop.js: 17161 > 6817
-app.ja: 17303 > 6842
-
 ## must have
 
 * Enemies: 2 circles (2 hits)
