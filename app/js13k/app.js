@@ -130,6 +130,9 @@
 				});
 				scoreModel.add(10);
 				
+				// Kill all the enemies
+				killAllEnemies();
+				
 				// Apply the damage to the ship and check if it
 				// is dead.
 				if(ship.damage(1)){
@@ -140,10 +143,8 @@
 		}
 	};
 	
-	var gameOver = function(){
-		_gameOver = true;
-		
-		// Kill all enemies
+	// Kill all enemies
+	var killAllEnemies = function(){
 		var enemies = Enemy.instances;
 		for(var i=enemies.length-1; i>-1; --i){
 			var enemy = enemies[i];
@@ -155,7 +156,15 @@
 				angle: 0,
 				angleVariation: 6.28
 			});
+			scoreModel.add(10);
 		}
+	}
+	
+	var gameOver = function(){
+		_gameOver = true;
+		
+		//Kill all enemies
+		killAllEnemies();
 		
 		// Destroy the ship
 		ship.destroy();

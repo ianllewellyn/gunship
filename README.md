@@ -43,5 +43,4 @@ You can use your ship to hit an enemy to keep your multiplier.
 * Game: Display total enemies killed on the Game Over screen
 * Game: Display highest multiplier on the Game Over screen
 * Game: Display bullets fired on the Game Over screen
-* Game: Kill everything when your ship is hit?
 * Game: Particles inflict damage on enemies? Not so sure they should
