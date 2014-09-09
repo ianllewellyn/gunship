@@ -361,11 +361,6 @@
 			return self.health <= 0 ? true : false;
 		}
 		
-		// Destroy the ship
-		self.destroy = function(options){
-			self.assetList.remove(self);
-		}
-		
 		// Make a particle explosion from the ship, particleCount is the
 		// number of particles to release
 		self.explode = function(particleCount){
@@ -382,6 +377,11 @@
 					life: 500
 				}));
 			}
+		}
+		
+		// Destroy the ship
+		self.destroy = function(options){
+			self.assetList.remove(self);
 		}
 	}
 })();

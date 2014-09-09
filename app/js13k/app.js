@@ -70,6 +70,11 @@
 		enemyTime += frameTime;
 		if(enemyTime > SPAWN_TIME){
 			enemyTime -= SPAWN_TIME;
+			
+			//TODO: Decide what health the enemies should be created with?
+			// Make a random enemy, but add higher health number for each
+			// 10 enemies killed?
+			
 			game.assets.add(new Enemy({
 				x: (Math.random() * (game.width-40)) + 20,
 				y: -20,
@@ -79,7 +84,8 @@
 					bottom: game.height+20,
 					left: 0
 				},
-				escaped: scoreModel.resetMultiplier
+				escaped: scoreModel.resetMultiplier,
+				health: 1
 			}));
 		}
 		
@@ -98,14 +104,13 @@
 				
 				if(bullet.hits(enemy)){
 					bullet.destroy();
-					if(enemy.damage(30)){
-						enemy.destroy({
-							explode: true,
-							angle: bullet.angle,
-							speed: bullet.speed * 0.8,
-							x: bullet.x,
-							y: bullet.y
-						});
+					if(enemy.damage({
+						damage: 1,
+						angle: bullet.angle,
+						speed: bullet.speed * 0.8,
+						x: bullet.x,
+						y: bullet.y
+					})){
 						// If an enemy is destroyed then we don't need to check collisions
 						// against the rest of the bullets.
 						destroyed = true;
@@ -120,21 +125,11 @@
 			
 			// Check if they hit the ship
 			if(ship.hits(enemy)){
-				enemy.destroy({
-					explode: true,
-					x: enemy.x,
-					y: enemy.y,
-					speed: 5,
-					angle: 0,
-					angleVariation: 6.28
-				});
-				scoreModel.add(10);
 				
 				// Kill all the enemies
 				killAllEnemies();
 				
-				// Apply the damage to the ship and check if it
-				// is dead.
+				// Apply the damage to the ship, if it's run out of health as a result then it's game over!
 				if(ship.damage(1)){
 					gameOver();
 					return;
@@ -162,9 +157,6 @@
 	
 	var gameOver = function(){
 		_gameOver = true;
-		
-		//Kill all enemies
-		killAllEnemies();
 		
 		// Destroy the ship
 		ship.destroy();
