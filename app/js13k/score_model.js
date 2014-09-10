@@ -4,7 +4,7 @@
 		
 		self._points = 0;
 		self._multiplier = 1;
-		self._maxMultiplier = 10;
+		self._maxMultiplier = 20;
 		self._enemyChain = self._threshold = 10;
 		self._totalEnemies = 0;
 		
