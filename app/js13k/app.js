@@ -43,6 +43,29 @@
 		}
 	];
 	
+	var _allShipPowerups = [
+		{
+			burstLength: 1,
+			roundDelay: 90
+		},
+		{
+			burstLength: 2,
+			roundDelay: 90
+		},
+		{
+			burstLength: 3,
+			roundDelay: 90
+		},
+		{
+			burstLength: 5,
+			roundDelay: 90
+		},
+		{
+			burstLength: 5,
+			roundDelay: 60
+		}
+	];
+	
 	// Initialize is passed an array of game assets. Add
 	// to this array to automatically update and draw them
 	// each frame.
@@ -53,6 +76,7 @@
 		_enemyTypes = [_allEnemyTypes[0]];
 		
 		scoreModel = new ScoreModel({
+			
 			// When increaseDifficulty is called add the next difficulty enemy
 			// to the enemy types pool. This runs through each enemy index as
 			// difficultyLevel increments one each callback. If we run out of
@@ -60,6 +84,14 @@
 			// added again to increase the likelyhood of it being selected.
 			increaseDifficulty: function(difficultyLevel){
 				_enemyTypes.push(_allEnemyTypes[Math.min(_allEnemyTypes.length-1, difficultyLevel)]);
+			},
+			
+			// When increasePowerup() is called we apply the upgrade for that
+			// lever to the ship for as long as there are upgrades to apply.
+			increasePowerup: function(powerupLevel){
+				if(_allShipPowerups.length > powerupLevel){
+					ship.powerup(_allShipPowerups[powerupLevel]);
+				}
 			}
 		});
 		
@@ -89,6 +121,7 @@
 			y: game.height-135,
 			bounds: bounds
 		}));
+		ship.powerup(_allShipPowerups[0]);
 	}
 	
 	// Update anything in addition to registered assets

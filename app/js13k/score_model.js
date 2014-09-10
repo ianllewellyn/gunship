@@ -12,6 +12,10 @@
 		self._difficultyChain = 0;
 		self.increaseDifficulty = options.increaseDifficulty;
 		
+		self._powerupLevel = 0;
+		self._powerupChain = 0;
+		self.increasePowerup = options.increasePowerup;
+		
 		// Get the multiplier
 		self.multiplier = function(){
 			return self._multiplier;
@@ -26,6 +30,7 @@
 		self.resetMultiplier = function(){
 			self._multiplier = 1;
 			self._enemyChain = self._threshold;
+			self._powerupChain = 0;
 		}
 		
 		// Add points to the model
@@ -52,8 +57,16 @@
 					self.increaseDifficulty(self._difficultyLevel);
 			}
 			
-			//TODO: If the user gets a kill streak of 15 then
-			// callback to give an upgrade
+			// If the user gets a kill streak of 20 then
+			// callback to award an upgrade. Powerup chain is
+			// reset each time an enemy escapes but already awarded
+			// powerups stay.
+			if(++self._powerupChain == 20){
+				self._powerupChain = 0;
+				++self._powerupLevel;
+				if(self.increasePowerup)
+					self.increasePowerup(self._powerupLevel);
+			}
 		}
 	}
 })();

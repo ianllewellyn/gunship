@@ -18,7 +18,6 @@ You can use your ship to hit an enemy to keep your multiplier.
 * Enemy: An enemy that contains multiple smaller ones that are released when the container is broken
 * Enemy: Make them look more interesting, oval and rotating?
 
-* Powerup: 5 round burst
 * Powerup: Armour peircing
 * Powerup: Fully auto
 * Powerup: Faster rounds

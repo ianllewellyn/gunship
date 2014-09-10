@@ -11,11 +11,6 @@
 	var OUTER_ROTOR_1_POS = 0;
 	var OUTER_ROTOR_2_POS = HALF_CIRCLE;
 	
-	// Cannon settings
-	var BURST_LENGTH = 3;
-	var ROUND_DELAY = 90;
-	var BURST_DELAY = (BURST_LENGTH * ROUND_DELAY) + 540;
-	
 	// http://github.grumdrig.com/jsfxr/
 	// http://www.superflashbros.net/as3sfxr/
 	var effects = window.Effects;
@@ -42,6 +37,19 @@
 		self._burst = 0;
 		self._bulletX = undefined;
 		self._bulletY = undefined;
+		
+		// Cannon settings
+		self.burstLength = 3;
+		self.roundDelay = 90;
+		self.burstDelay = (self.burstLength * self.roundDelay) + 540;
+		
+		// Change settings on the ship by applying options passed in
+		// to the instance. Used for cannon but could do health or speed
+		// etc too.
+		self.powerup = function(options){
+			extend(self, options);
+			self.burstDelay = (self.burstLength * self.roundDelay) + 540;
+		}
 		
 		// Health is set to 3 to start, each hit removes 1 hp
 		self.health = 3;
@@ -74,15 +82,15 @@
 				var burst = self._burst;
 				
 				// If the user has pressed fire then start a burst
-				if(Input.fire() && burst < 1 && lastBurst > BURST_DELAY){
-					burst = BURST_LENGTH;
+				if(Input.fire() && burst < 1 && lastBurst > self.burstDelay){
+					burst = self.burstLength;
 					lastBurst = 0;
 				}
 				
 				// If there is one or more rounds in the burst then
 				// fire a new one if we have waited long enough between
 				// rounds.
-				if(burst > 0 && lastFired > ROUND_DELAY){
+				if(burst > 0 && lastFired > self.roundDelay){
 					self.fire();
 					--burst;
 					lastFired = 0;
