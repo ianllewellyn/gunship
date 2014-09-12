@@ -68,7 +68,7 @@
 	
 	var initialize = function(assets, start){
 		assets.add(new Instructions({
-			state: 'new',
+			message: 'Press [Enter] to start!',
 			bounds: {
 				top: 0,
 				right: game.width,
@@ -77,7 +77,6 @@
 			},
 			start: start
 		}));
-		// start();
 	}
 	
 	// setupGameAssets is passed an array of game assets. Add

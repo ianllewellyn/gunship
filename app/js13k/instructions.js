@@ -25,6 +25,7 @@
 		self.x = self.bounds.right/2;
 		self.y = 70;
 		self.start = options.start;
+		self.message = options.message || 'Press [p] to resume!';
 		
 		self.update = function(frameTime, delta){
 			if(Input.restart()){
@@ -54,7 +55,7 @@
 			
 			ctx.textAlign = 'center';
 			ctx.font = '18px Arial';
-			self.drawLine(ctx, 'Press [p] to resume!', x, y+450);
+			self.drawLine(ctx, self.message, x, y+450);
 		}
 		
 		self.drawPara = function(ctx, para, x, y){
