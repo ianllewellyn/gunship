@@ -42,6 +42,7 @@
 		self.burstLength = 3;
 		self.roundDelay = 90;
 		self.burstDelay = (self.burstLength * self.roundDelay) + 540;
+		self.cannonAngle = 0;
 		
 		// Change settings on the ship by applying options passed in
 		// to the instance. Used for cannon but could do health or speed
@@ -130,7 +131,7 @@
 			if(theta < 0)
 				theta += 2 * Math.PI;
 			
-			cannonAngle = theta;
+			self.cannonAngle = theta;
 		}
 		
 		self.updateRotor = function(delta){
@@ -260,8 +261,8 @@
 		self.drawCannon = function(ctx){
 			var x = self.x;
 			var y = self.y + 10;
-			var endX = self._bulletX = x + 20 * Math.cos(cannonAngle);
-			var endY = self._bulletY = y + 20 * -Math.sin(cannonAngle);
+			var endX = self._bulletX = x + 20 * Math.cos(self.cannonAngle);
+			var endY = self._bulletY = y + 20 * -Math.sin(self.cannonAngle);
 			
 			ctx.beginPath();
 			ctx.moveTo(endX, endY);
@@ -313,7 +314,7 @@
 				y: self._bulletY,
 				speed: 10,
 				speedVariation: 1,
-				angle: cannonAngle,
+				angle: self.cannonAngle,
 				angleVariation: 0.1,
 				bounds: self.bounds
 			}));

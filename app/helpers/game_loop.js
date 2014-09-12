@@ -51,20 +51,35 @@
 		self.height = self.canvas.height;
 		
 		self._running = false;
+		self.paused = false;
 		
-		self._lastUpdate = 0;
+		self._lastUpdate = performance.now();
 		
 		// Start the game loop
 		// Initialize the game and queue an update to start the loop
-		self.start = function(){
-			self.assets = new AssetList();
-			self.initialize(self.assets);
+		self.run = function(){
 			
-			// Only queue an update if there isn't already one
+			self.assets = new AssetList();
+			
+			// Only initialize and start the update loop if this
+			// if the first time we've run up.
 			if(!self._running){
+				
+				// Call initialize and wait for the start() callback
+				// before setting up game assets.
+				self.initialize(self.assets, function(){
+					self.setupGameAssets(self.assets);
+					self._setup = true;
+				});
+				
 				self._running = true;
 				self._queueUpdate();
 			}
+		}
+		
+		// Pause the game loop
+		self.pause = function(pause){
+			self.paused = pause;
 		}
 		
 		// Queue an update
@@ -79,15 +94,20 @@
 		
 		// Update game logic
 		self._update = function(){
-			
 			var now = performance.now();
 			var frameTime = now - self._lastUpdate;
 			var delta = TARGET_DELTA * frameTime;
 			self._lastUpdate = now;
 			
 			// Update each game asset and the passed in callback
-			self.assets.update(frameTime, delta);
-			self.update(frameTime, delta);
+			// If the game is paused then we don't update assets,
+			// but we do still draw them.
+			if(!self.paused){
+				self.assets.update(frameTime, delta);
+				if(self._setup){
+					self.update(frameTime, delta);
+				}
+			}
 			
 			//TODO: Clear pressed keys from the input manager
 			

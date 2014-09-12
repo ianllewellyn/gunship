@@ -66,10 +66,24 @@
 		}
 	];
 	
-	// Initialize is passed an array of game assets. Add
+	var initialize = function(assets, start){
+		assets.add(new Instructions({
+			state: 'new',
+			bounds: {
+				top: 0,
+				right: game.width,
+				bottom: game.height,
+				left: 0
+			},
+			start: start
+		}));
+		// start();
+	}
+	
+	// setupGameAssets is passed an array of game assets. Add
 	// to this array to automatically update and draw them
 	// each frame.
-	var initialize = function(assets){
+	var setupGameAssets = function(assets){
 		
 		// Set the initial possible enemy type including the
 		// first enemy only
@@ -128,7 +142,6 @@
 	
 	// Update anything in addition to registered assets
 	var update = function(frameTime){
-		
 		if(_gameOver){
 			if(Input.restart()){
 				_gameOver = false;
@@ -246,12 +259,35 @@
 	// Draw anything in addition to registered assets
 	var draw = function(ctx){};
 	
+	// If the pause button is pressed then pause the game loop
+	document.addEventListener('keydown', function(e){
+		if(e.keyCode == 80){
+			if(game.paused){
+				game.assets.remove(instructions);
+				game.pause(false);
+			}else{
+				instructions = new Instructions({
+					state: 'paused',
+					bounds: {
+						top: 0,
+						right: game.width,
+						bottom: game.height,
+						left: 0
+					}
+				});
+				game.assets.add(instructions);
+				game.pause(true);
+			}
+		}
+	});
+	
 	// Start the game loop
 	var game = new GameLoop({
 		canvas: $('#canvas'),
 		initialize: initialize,
+		setupGameAssets: setupGameAssets,
 		update: update,
 		draw: draw
 	});
-	game.start();
+	game.run();
 })();

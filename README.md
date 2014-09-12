@@ -12,8 +12,6 @@ You can use your ship to hit an enemy to keep your multiplier.
 
 ## must have
 
-* Game: Pause button
-
 * Enemy: Randomise (and increase) enemy spawn speed
 * Enemy: A small enemy
 * Enemy: Add an enemy that bobs round
@@ -24,8 +22,10 @@ You can use your ship to hit an enemy to keep your multiplier.
 * Ship: Smoke particles when damaged
 
 * Game: Wind that blows from the sides of the screen to move things round
-* Game: A start screen with controls etc
 * Game: Localstorage hiscore
+* Game: Powerup indicator
+* Game: Make multiplier and score bigger
+* Game: Remove the frame timer
 
 ## nice to have
 
