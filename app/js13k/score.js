@@ -7,7 +7,7 @@
 		
 		self.draw = function(ctx){
 			ctx.fillStyle = '#fff';
-			ctx.font = '12px Arial';
+			ctx.font = '18px Arial';
 			ctx.textAlign = 'right';
 			ctx.fillText(self.scoreModel.multiplier()+'x'+'   '+self.scoreModel.score(), self.bounds.right-20, 30);
 		}

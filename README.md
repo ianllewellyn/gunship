@@ -22,10 +22,9 @@ You can use your ship to hit an enemy to keep your multiplier.
 * Ship: Smoke particles when damaged
 
 * Game: Wind that blows from the sides of the screen to move things round
-* Game: Localstorage hiscore
+* Game: Local storage high score
 * Game: Powerup indicator
-* Game: Make multiplier and score bigger
-* Game: Remove the frame timer
+* Game: Remove the frame graph
 
 ## nice to have
 
