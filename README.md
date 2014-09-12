@@ -12,26 +12,26 @@ You can use your ship to hit an enemy to keep your multiplier.
 
 ## must have
 
+* Game: Pause button
+
 * Enemy: Randomise (and increase) enemy spawn speed
 * Enemy: A small enemy
 * Enemy: Add an enemy that bobs round
 * Enemy: An enemy that contains multiple smaller ones that are released when the container is broken
+* Enemy: A swarm of enemies that spawns at once
 * Enemy: Make them look more interesting, oval and rotating?
 
-* Powerup: Armour peircing
-* Powerup: Fully auto
-* Powerup: Faster rounds
-* Powerup: Double damage
+* Ship: Smoke particles when damaged
 
+* Game: Wind that blows from the sides of the screen to move things round
 * Game: A start screen with controls etc
-* Game: Pause button
+* Game: Localstorage hiscore
 
 ## nice to have
 
 * Code: Composit bitmap data instead of drawing vectors each frame
 * Code: Make particle and bullets share code
 
-* Ship: Smoke particles when damaged
 * Ship: Limit the rotation of the cannon
 * Ship: Make the ship bob up and down to show motion
 * Ship: Have the cannon push the helicopter backwards when it fires
@@ -40,9 +40,13 @@ You can use your ship to hit an enemy to keep your multiplier.
 
 * Weapon: Homing rockets?
 
-* Game: Localstorage leaderboard
 * Game: Sounds!!
 * Game: Display total enemies killed on the Game Over screen
 * Game: Display highest multiplier on the Game Over screen
 * Game: Display bullets fired on the Game Over screen
 * Game: Particles inflict damage on enemies? Not so sure they should
+
+* Powerup: Armour peircing
+* Powerup: Fully auto
+* Powerup: Faster rounds
+* Powerup: Double damage
