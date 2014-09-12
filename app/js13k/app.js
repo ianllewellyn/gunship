@@ -83,7 +83,9 @@
 			// enemies to add then the last (most difficult) enemy will be
 			// added again to increase the likelyhood of it being selected.
 			increaseDifficulty: function(difficultyLevel){
-				_enemyTypes.push(_allEnemyTypes[Math.min(_allEnemyTypes.length-1, difficultyLevel)]);
+				if(_allEnemyTypes.length > difficultyLevel){
+					_enemyTypes.push(_allEnemyTypes[_allEnemyTypes.length-1, difficultyLevel]);
+				}
 			},
 			
 			// When increasePowerup() is called we apply the upgrade for that
