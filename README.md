@@ -1,46 +1,23 @@
-# gunship
+# Gunship13k
 
-Score points by shooting enemies.
-Die when you are hit 3 times.
-Break multiplier when an enemy gets past.
+## Gameplay
 
-## must have
+Shoot enemies to score points.
 
-* Ship: Fix nose
-* Ship: Rear roter
-* Ship: Make smaller
-* Ship: Drop sparks after one hit
-* Ship: Rotor imbalance after two hits
-* Ship: Kill animation
+Chain kills to increase your multiplier and power up your cannon.
 
-* Game: Score multiplier - Multiplier rises for each 10 kills until you miss an enemy
+If an enemy gets past you, the score multiplier is reset!
 
-* Enemies with 2 circles (2 hits)
-* Enemies with 3 circles (3 hits)
+Hitting an enemy with your ship will trigger an explosion and kill all everything.
 
-* Powerup: 5 round burst
-* Powerup: Armour peircing
-* Powerup: Fully auto
-* Powerup: Faster rounds
-* Powerup: Double damage
+But if you get hit three times it's Game Over!
 
-* Weapon: Homing rockets
+## Controls
 
-* Game: A start screen with controls etc
+Move left and right using [a] and [d] or arrow left and right.
 
-## nice to have
+Aim cannons with mouse cursor.
 
-* Code: Optimise app.update() to not loop through all enemies twice
-* Code: Composit bitmap data instead of drawing vectors each frame
-* Code: Make particle and bullets share code
+Fire with [space] or left mouse button.
 
-* Ship: Limit the rotation of the cannon
-* Ship: Make the ship bob up and down to show motion
-* Ship: Have the cannon push the helicopter backwards when it fires
-* Ship: Rotate the ship a little when it moves left/right
-
-* Game: Localstorage leaderboard
-* Game: Particles inflict damage on enemies?
-* Game: Bounce particles off the canvas edges
-* Game: Explode bullets off screen edges
-* Game: Sounds!!
+Pause and resume with [p].

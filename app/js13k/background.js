@@ -1,5 +1,4 @@
 (function(){
-	
 	window.Background = function(options){
 		var self = this;
 		
@@ -17,15 +16,18 @@
 		
 		// Draw the background rect
 		self.draw = function(ctx){
+			var width = self.width;
+			var height = self.height;
+			
 			ctx.fillStyle = '#000';
-			ctx.fillRect(0, 0, self.width, self.height);
+			ctx.fillRect(0, 0, width, height);
 			
 			// Draw a grid on the bg
 			drawGrid(ctx, {
 				bounds: {
 					top: 0,
-					right: self.width,
-					bottom: self.height,
+					right: width,
+					bottom: height,
 					left: 0
 				},
 				step: 50,
