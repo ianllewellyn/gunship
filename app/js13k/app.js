@@ -26,6 +26,8 @@
 	// when spawning a new one
 	var _enemyTypes;
 	
+	var _enemiesKilled = _enemiesEscaped = 0;
+	
 	// All the possible enemy types in order of difficulty
 	var _allEnemyTypes = [
 		{
@@ -92,6 +94,7 @@
 		// Set the initial possible enemy type including the
 		// first enemy only
 		_enemyTypes = [_allEnemyTypes[0]];
+		_enemiesKilled = _enemiesEscaped = 0;
 		
 		scoreModel = new ScoreModel({
 			
@@ -176,7 +179,10 @@
 					bottom: game.height+20,
 					left: 0
 				},
-				escaped: scoreModel.resetMultiplier
+				escaped: function(){
+					scoreModel.resetMultiplier();
+					++_enemiesEscaped;
+				}
 			}, _enemyTypes[Math.floor(Math.random() * (_enemyTypes.length))]);
 			
 			game.assets.add(new Enemy(options));
@@ -208,6 +214,7 @@
 						// against the rest of the bullets.
 						destroyed = true;
 						scoreModel.add(10);
+						++_enemiesKilled;
 						break;
 					}
 				}
@@ -245,6 +252,7 @@
 				angleVariation: 6.28
 			});
 			scoreModel.add(10);
+			++_enemiesKilled;
 		}
 	}
 	
@@ -265,7 +273,10 @@
 				bottom: game.height,
 				left: 0
 			},
-			scoreModel: scoreModel
+			scoreModel: scoreModel,
+			bulletsFired: ship.bulletsFired,
+			enemiesKilled: _enemiesKilled,
+			enemiesescaped: _enemiesEscaped
 		}));
 	};
 	

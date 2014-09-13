@@ -4,6 +4,9 @@
 		
 		self.bounds = options.bounds;
 		self.scoreModel = options.scoreModel;
+		self.bulletsFired = options.bulletsFired;
+		self.enemiesKilled = options.enemiesKilled;
+		self.enemiesescaped = options.enemiesescaped;
 		self.x = self.bounds.right/2;
 		self.y = self.bounds.bottom/2-100;
 		
@@ -55,11 +58,19 @@
 					'Previous best: '+highScore
 				]
 			}
+			message = message.concat([
+				'Highest multiplier: '+self.scoreModel.score(),
+				'Bullets fired: '+self.bulletsFired,
+				'Enemies killed: '+self.enemiesKilled,
+				'Longest kill chain: '+self.scoreModel.longestKillChain(),
+				'Enemies escaped: '+self.enemiesescaped
+			]);
+			
 			drawParagraph(ctx, message, x, y+40, 'center');
 			
 			ctx.textAlign = 'center';
 			ctx.font = '18px Arial';
-			ctx.fillText('Press [Enter] to try again', x, y+200);
+			ctx.fillText('Press [Enter] to try again', x, y+230);
 		}
 	};
 })();

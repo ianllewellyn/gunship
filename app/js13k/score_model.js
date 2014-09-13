@@ -18,6 +18,15 @@
 		
 		self._previousHighScore = 0;
 		
+		self._killChain = 0;
+		
+		// Stats
+		
+		self._bulletsFired = 0;
+		self._enemiesKilled = 0;
+		self._enemiesEscaped = 0;
+		self._longestKillChain = 0;
+		
 		// Load highscore from local storage
 		var storedData = localStorage.getItem('gunship');
 		if(storedData){
@@ -47,12 +56,16 @@
 		self.highScore = function(){
 			return self._previousHighScore;
 		}
+		self.longestKillChain = function(){
+			return self._longestKillChain;
+		}
 		
 		// Reset the miltiplier
 		self.resetMultiplier = function(){
 			self._multiplier = 1;
 			self._enemyChain = self._threshold;
 			self._powerupChain = 0;
+			self._killChain = 0;
 		}
 		
 		// Add points to the model
@@ -60,6 +73,9 @@
 		self.add = function(points){
 			
 			self._points += (points * self._multiplier);
+			
+			// Maintain the killchain values
+			self._longestKillChain = Math.max(self._longestKillChain, ++self._killChain);
 			
 			if(self._multiplier < self._maxMultiplier && --self._enemyChain == 0){
 				++self._multiplier;

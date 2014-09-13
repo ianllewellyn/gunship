@@ -44,6 +44,8 @@
 		self.burstDelay = (self.burstLength * self.roundDelay) + 540;
 		self.cannonAngle = 0;
 		
+		self.bulletsFired = 0;
+		
 		// Change settings on the ship by applying options passed in
 		// to the instance. Used for cannon but could do health or speed
 		// etc too.
@@ -53,7 +55,7 @@
 		}
 		
 		// Health is set to 3 to start, each hit removes 1 hp
-		self.health = 3;
+		self.health = 1;
 		
 		var createParticle = function(x, y){
 			self.assetList.add(new Particle({
@@ -279,6 +281,8 @@
 		}
 		
 		self.fire = function(){
+			++self.bulletsFired;
+			
 			// effects.play('cannon');
 			
 			self.assetList.add(new Bullet({

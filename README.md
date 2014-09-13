@@ -28,10 +28,6 @@ Pause and resume with [p].
 
 ### must have
 
-* Game: Display total enemies killed on the Game Over screen
-* Game: Display highest multiplier on the Game Over screen
-* Game: Display bullets fired on the Game Over screen
-
 * Enemy: Make them look more interesting, oval and rotating?
 
 * Game: Wind that blows from the sides of the screen to move things round
