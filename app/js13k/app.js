@@ -49,10 +49,10 @@
 	];
 	
 	var _allShipPowerups = [
-		{
+		/*{
 			burstLength: 1,
 			roundDelay: 90
-		},
+		},*/
 		{
 			burstLength: 2,
 			roundDelay: 90
@@ -257,7 +257,7 @@
 			scoreModel.add(10);
 			++_enemiesKilled;
 		}
-		difficultyMultiplier = Math.min(1, Math.max(0.6, difficultyMultiplier + 0.06);
+		difficultyMultiplier = Math.min(1, Math.max(0.6, difficultyMultiplier + 0.06));
 	}
 	
 	var gameOver = function(){
