@@ -31,7 +31,9 @@ Pause and resume with [p].
 * Enemy: Make them look more interesting, oval and rotating?
 
 * Game: Wind that blows from the sides of the screen to move things round
+
 * Game: Remove the frame graph
+* Game: Restore ship to 3 hit points
 
 ### nice to have
 

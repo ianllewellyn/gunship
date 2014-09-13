@@ -21,6 +21,7 @@
 	
 	// If we're in the game over state
 	var _gameOver = false;
+	var _running = false;
 	
 	// An array of enemy type variations that can be selected from
 	// when spawning a new one
@@ -88,6 +89,7 @@
 	// to this array to automatically update and draw them
 	// each frame.
 	var setupGameAssets = function(assets){
+		_running = true;
 		
 		enemyTime = 0;
 		
@@ -285,7 +287,7 @@
 	
 	// If the pause button is pressed then pause the game loop
 	document.addEventListener('keydown', function(e){
-		if(!_gameOver && e.keyCode == 80){
+		if(!_gameOver && _running && e.keyCode == 80){
 			if(game.paused){
 				game.assets.remove(instructions);
 				game.pause(false);
