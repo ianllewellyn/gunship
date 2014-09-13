@@ -13,7 +13,7 @@
 	{
 		"start": "brunch watch --server",
 		"build": "brunch build",
-		"release": "brunch build --production && zip -g -v js13k.zip public/*"
+		"release": "rm -r public/ && brunch build --production && zip -g -v gunship13k.zip public/*"
 	},
 	"dependencies":
 	{
