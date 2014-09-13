@@ -2,7 +2,7 @@
 	
 	var TARGET_DELTA = 60/1000;
 	var getTime = function(){
-		if(window.performance){
+		if(window.performance && window.performance.now){
 			return performance.now();
 		}else{
 			return (new Date()).getTime();
@@ -98,7 +98,11 @@
 		
 		// Queue a draw
 		self._queueDraw = function(){
-			window.requestAnimationFrame(self._draw);
+			if(window.requestAnimationFrame){
+				window.requestAnimationFrame(self._draw);
+			}else{
+				window.setTimeout(self._draw, 1000/60)
+			}
 		}
 		
 		// Update game logic
