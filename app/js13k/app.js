@@ -265,7 +265,7 @@
 	
 	// If the pause button is pressed then pause the game loop
 	document.addEventListener('keydown', function(e){
-		if(e.keyCode == 80){
+		if(!_gameOver && e.keyCode == 80){
 			if(game.paused){
 				game.assets.remove(instructions);
 				game.pause(false);
