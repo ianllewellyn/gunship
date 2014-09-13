@@ -39,8 +39,9 @@
 	// Listen to mousemove, storing the coordinates as we are ready to return
 	// them from Input.mouse() method whenever it is called.
 	document.addEventListener('mousemove', function(e){
-		_mouseX = e.clientX;
-		_mouseY = e.clientY;
+		var rect = window.game.canvas.getBoundingClientRect();
+		_mouseX = e.clientX - rect.left;
+		_mouseY = e.clientY - rect.top;
 	});
 	
 	// Check if a control is currently down or not

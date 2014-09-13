@@ -257,7 +257,7 @@
 			scoreModel.add(10);
 			++_enemiesKilled;
 		}
-		difficultyMultiplier = Math.min(1, Math.max(0.6, difficultyMultiplier + 0.06));
+		difficultyMultiplier = Math.min(1, Math.max(0.6, difficultyMultiplier + 0.1));
 	}
 	
 	var gameOver = function(){
@@ -310,7 +310,7 @@
 	});
 	
 	// Start the game loop
-	var game = new GameLoop({
+	var game = window.game = new GameLoop({
 		canvas: $('#canvas'),
 		initialize: initialize,
 		setupGameAssets: setupGameAssets,
