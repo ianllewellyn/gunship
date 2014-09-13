@@ -1,27 +1,43 @@
-# gunship
+# Gunship13k
 
-Score points by shooting enemies.
+## Game play
 
-Die when you are hit 3 times.
+Shoot enemies to score points.
 
-Kill 10 enemies to increase your score multiplier.
+Chain kills to increase your multiplier and power up your cannon.
 
-Multiplier is reset if an enemy escapes.
+If an enemy gets past you, the score multiplier is reset!
 
-You can use your ship to hit an enemy to keep your multiplier.
+Hitting an enemy with your ship will trigger an explosion and kill all everything.
 
-## must have
+But if you get hit three times it's Game Over!
 
-* Enemy: Make them look more interesting, oval and rotating?
+## Controls
+
+Move left and right using [a] and [d] or arrow left and right.
+
+Aim cannons with mouse cursor.
+
+Fire with [space] or left mouse button.
+
+Pause and resume with [p].
+
+---
+
+## TODO
+
+### must have
 
 * Game: Display total enemies killed on the Game Over screen
 * Game: Display highest multiplier on the Game Over screen
 * Game: Display bullets fired on the Game Over screen
 
+* Enemy: Make them look more interesting, oval and rotating?
+
 * Game: Wind that blows from the sides of the screen to move things round
 * Game: Remove the frame graph
 
-## nice to have
+### nice to have
 
 * Code: Make particle and bullets share code
 

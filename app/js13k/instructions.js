@@ -50,8 +50,8 @@
 			ctx.textAlign = 'center';
 			drawTextLine(ctx, 'Gunship13k', x, y);
 			
-			drawParagraph(ctx, CONTROLS, x, y+50);
-			drawParagraph(ctx, GAME, x, y+190);
+			drawParagraph(ctx, GAME, x, y+50);
+			drawParagraph(ctx, CONTROLS, x, y+230);
 			
 			ctx.textAlign = 'center';
 			ctx.font = '18px Arial';
