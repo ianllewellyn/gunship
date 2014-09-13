@@ -12,7 +12,6 @@ You can use your ship to hit an enemy to keep your multiplier.
 
 ## must have
 
-* Enemy: Randomise (and increase) enemy spawn speed
 * Enemy: A small enemy
 * Enemy: Add an enemy that bobs round
 * Enemy: An enemy that contains multiple smaller ones that are released when the container is broken
@@ -42,9 +41,10 @@ You can use your ship to hit an enemy to keep your multiplier.
 * Game: Display total enemies killed on the Game Over screen
 * Game: Display highest multiplier on the Game Over screen
 * Game: Display bullets fired on the Game Over screen
-* Game: Particles inflict damage on enemies? Not so sure they should
 
 * Powerup: Armour peircing
 * Powerup: Fully auto
 * Powerup: Faster rounds
 * Powerup: Double damage
+
+* Enemy: Randomise enemy spawn speed

@@ -7,6 +7,8 @@
 (function(){
 	
 	var SPAWN_TIME = 2000;
+	var difficultyMultiplier = 1;
+	var nextEnemyTime = SPAWN_TIME;
 	
 	// The ship
 	var ship;
@@ -101,6 +103,9 @@
 				if(_allEnemyTypes.length > difficultyLevel){
 					_enemyTypes.push(_allEnemyTypes[_allEnemyTypes.length-1, difficultyLevel]);
 				}
+				if(difficultyMultiplier > 0.5){
+					difficultyMultiplier = Math.max(0.6, difficultyMultiplier - 0.03);
+				}
 			},
 			
 			// When increasePowerup() is called we apply the upgrade for that
@@ -153,8 +158,11 @@
 		
 		// Spawn enemies as time passes
 		enemyTime += frameTime;
-		if(enemyTime > SPAWN_TIME){
-			enemyTime -= SPAWN_TIME;
+		if(enemyTime > (nextEnemyTime)){
+			enemyTime -= nextEnemyTime;
+			
+			// Calculate the number of ms until we spawn another enemy
+			nextEnemyTime = SPAWN_TIME * difficultyMultiplier;
 			
 			// Pick a random enemy from the pool, this pool gets more difficult
 			// enemies added over time as more enemies are killed.
