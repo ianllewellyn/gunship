@@ -12,8 +12,6 @@ You can use your ship to hit an enemy to keep your multiplier.
 
 ## must have
 
-* Game: Cache the helicopter sprite
-
 * Enemy: Make them look more interesting, oval and rotating?
 
 * Game: Display total enemies killed on the Game Over screen

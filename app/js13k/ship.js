@@ -137,7 +137,7 @@
 		}
 		
 		self.updateCannon = function(delta){
-			var mouse = Input.mouse()
+			var mouse = Input.mouse();
 			var diff = {
 				x: mouse.x - self.x,
 				y: mouse.y - self.y - 10
@@ -223,55 +223,13 @@
 			var x = self.x;
 			var y = self.y;
 			
+			ctx.drawImage(SHIP_SPRITE, x-21, y-1);
+			
 			ctx.lineWidth = 1;
 			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
 			ctx.fillStyle = 'rgba(0, 0, 0, 1)';
 			
 			self.drawCannon(ctx);
-			
-			// ctx.fillStyle = 'rgba(0, 0, 0, 1)'
-			drawShape(ctx, [
-				// Cabin
-				[0, 0],
-				[3, 0],
-				[3, 4],
-				[5, 6],
-				[6, 9],
-				[7, 14],
-				[7, 38],
-				
-				// Hardpoints
-				[10, 38],
-				[10, 30],
-				[14, 30],
-				[14, 38],
-				[17, 38],
-				[17, 30],
-				[20, 30],
-				[20, 47],
-				
-				[12, 47],
-				[12, 60],
-				[6, 64],
-				[6, 58],
-				[3, 58],
-				
-				[3, 64],
-				[3, 98],
-				[2, 100],
-				[2, 110],
-				
-				// Tail
-				[15, 110],
-				[15, 116],
-				[1, 116],
-				[1, 125],
-				[0, 125]
-			], {
-				x: x,
-				y: y
-			}, true, true, true);
-			
 			self.drawRoter(ctx);
 		}
 		
@@ -297,9 +255,6 @@
 			var innerRotor2Pos = INNER_ROTOR_2_POS + rotation;
 			var outerRotor1Pos = OUTER_ROTOR_1_POS + rotation;
 			var outerRotor2Pos = OUTER_ROTOR_2_POS + rotation;
-			
-			// Central hub
-			drawCircle(ctx, x, y, 6, true, true);
 			
 			// Inner blade trail
 			drawArc(ctx, x, y, 23, innerRotor1Pos, innerRotor1Pos + FIFTH_CIRCLE);
@@ -410,4 +365,61 @@
 			self.assetList.remove(self);
 		}
 	}
+	
+	// Draw the ship sprite
+	
+	var shipSprite = $('#shipsprite');
+	var ctx = shipSprite.getContext('2d');
+	
+	ctx.lineWidth = 1;
+	ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
+	ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+	
+	// ctx.fillStyle = 'rgba(0, 0, 0, 1)'
+	drawShape(ctx, [
+		// Cabin
+		[0, 0],
+		[3, 0],
+		[3, 4],
+		[5, 6],
+		[6, 9],
+		[7, 14],
+		[7, 38],
+		
+		// Hardpoints
+		[10, 38],
+		[10, 30],
+		[14, 30],
+		[14, 38],
+		[17, 38],
+		[17, 30],
+		[20, 30],
+		[20, 47],
+		
+		[12, 47],
+		[12, 60],
+		[6, 64],
+		[6, 58],
+		[3, 58],
+		
+		[3, 64],
+		[3, 98],
+		[2, 100],
+		[2, 110],
+		
+		// Tail
+		[15, 110],
+		[15, 116],
+		[1, 116],
+		[1, 125],
+		[0, 125]
+	], {
+		x: 21,
+		y: 1
+	}, true, true, true);
+	
+	// Central rotor hub
+	drawCircle(ctx, 21, 41, 6, true, true);
+	
+	var SHIP_SPRITE = shipSprite;
 })();
