@@ -110,7 +110,7 @@
 				if(_allEnemyTypes.length > difficultyLevel){
 					_enemyTypes.push(_allEnemyTypes[_allEnemyTypes.length-1, difficultyLevel]);
 				}
-				if(difficultyMultiplier > 0.5){
+				if(difficultyMultiplier > 0.6){
 					difficultyMultiplier = Math.max(0.6, difficultyMultiplier - 0.03);
 				}
 			},
@@ -257,6 +257,7 @@
 			scoreModel.add(10);
 			++_enemiesKilled;
 		}
+		difficultyMultiplier = Math.min(1, Math.max(0.6, difficultyMultiplier + 0.06);
 	}
 	
 	var gameOver = function(){

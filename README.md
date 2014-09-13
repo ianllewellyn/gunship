@@ -28,10 +28,6 @@ Pause and resume with [p].
 
 ### must have
 
-* Enemy: Make them look more interesting, oval and rotating?
-
-* Game: Wind that blows from the sides of the screen to move things round
-
 * Game: Remove the frame graph
 * Game: Make sure ship has 3 health
 
@@ -46,6 +42,8 @@ Pause and resume with [p].
 
 * Weapon: Homing rockets?
 
+
+* Game: Wind that blows from the sides of the screen to move things round
 * Game: Sounds!!
 * Game: Powerup happened indicator
 
