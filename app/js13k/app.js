@@ -69,6 +69,7 @@
 	];
 	
 	var initialize = function(assets, start){
+		// Add the instruction screen
 		assets.add(new Instructions({
 			message: 'Press [Enter] to start!',
 			bounds: {

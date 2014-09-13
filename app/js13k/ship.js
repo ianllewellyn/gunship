@@ -65,7 +65,23 @@
 				angleVariation: 1.5,
 				bounds: self.bounds,
 				life: 1000,
-				particleLength: 7
+				particleLength: 7,
+				color: [255, 132, 0]
+			}));
+		}
+		
+		var createSmokeParticle = function(x, y){
+			self.assetList.add(new Particle({
+				x: x,
+				y: y,
+				speed: 3,
+				speedVariation: 1,
+				angle: 5,
+				angleVariation: 1.5,
+				bounds: self.bounds,
+				life: 2000,
+				radius: 60,
+				color: [200, 200, 200]
 			}));
 		}
 		
@@ -110,9 +126,10 @@
 						self._particleTime -= 100;
 						
 						// Throw particles from the main roter if we're on 2 health
-						var num = self.health < 2 ? 3 : 1;
+						var num = self.health < 2 ? 2 : 1;
 						for(var i=0; i<num; ++i){
 							createParticle(self.x, self.y+40);
+							createSmokeParticle(self.x, self.y+40);
 						}
 					}
 				}

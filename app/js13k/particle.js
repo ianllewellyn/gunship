@@ -1,5 +1,19 @@
 (function(){
 	
+	// Generate the smoke sprite
+	var smokeCache = $('#smokesprite');
+	var ctx = smokeCache.getContext('2d');
+	
+	// Soft gradient circle
+	// drawGradientCircle(ctx, 100, 100, 100, '150, 150, 150', 1);
+	
+	// Hard edged circle
+	ctx.strokeStyle = 'rgba(150, 150, 150, 1)';
+	ctx.fillStyle = 'rgba(150, 150, 150, 1)';
+	drawCircle(ctx, 100, 100, 100, true, true);
+	
+	var SMOKE_SPRITE = smokeCache;
+	
 	// Reflection helper methods
 	var reflectVertical = function(incidence){
 		var r = 0 - (incidence + Math.PI - 0);
@@ -28,6 +42,8 @@
 		self._colorString = color[0]+', '+color[1]+', '+color[2];
 		
 		self.particleLength = options.particleLength || 10;
+		
+		self.radius = options.radius;
 		
 		// Apply the speed variation
 		var speedAdjust = (Math.random() * self.speedVariation) - (self.speedVariation / 2);
@@ -93,12 +109,21 @@
 			var opacity = 1-((1/self.life) * self._age);
 			var particleLength = self.particleLength;
 			
-			ctx.lineWidth = 1;
-			ctx.strokeStyle = 'rgba('+self._colorString+', '+opacity+')';
-			ctx.beginPath();
-			ctx.moveTo((x + particleLength * self._cos), (y + particleLength * self._sin));
-			ctx.lineTo(x, y);
-			ctx.stroke();
+			if(self.radius){
+				var radius = (self.radius/2)+(((self.radius/2)/self.life) * self._age);
+				opacity = Math.round((opacity * 0.1)*100)/100;
+				ctx.save();
+				ctx.globalAlpha = opacity;
+				ctx.drawImage(SMOKE_SPRITE, x-radius, y-radius, (radius*2), (radius*2));
+				ctx.restore();
+			}else{
+				ctx.lineWidth = 1;
+				ctx.strokeStyle = 'rgba('+self._colorString+', '+opacity+')';
+				ctx.beginPath();
+				ctx.moveTo((x + particleLength * self._cos), (y + particleLength * self._sin));
+				ctx.lineTo(x, y);
+				ctx.stroke();
+			}
 		}
 		
 		self.destroy = function(){

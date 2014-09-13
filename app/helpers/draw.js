@@ -33,6 +33,18 @@
 		if(stroke !== false) ctx.stroke();
 	}
 	
+	window.drawGradientCircle = function(ctx, x, y, r, color, opacity){
+		ctx.beginPath();
+		var gradient = ctx.createRadialGradient(x, y, 5, x, y, r);
+		gradient.addColorStop(0, 'rgba('+color+', '+opacity+')');
+		gradient.addColorStop(0.5, 'rgba('+color+', '+opacity+')');
+		gradient.addColorStop(1, 'rgba('+color+', 0)');
+		ctx.fillStyle = gradient;
+		
+		ctx.arc(x, y, r, 0, 2*Math.PI);
+		ctx.fill();
+	}
+	
 	// Helper function for drawing arcs
 	window.drawArc = function(ctx, x, y, rotation, start, end){
 		ctx.beginPath();
