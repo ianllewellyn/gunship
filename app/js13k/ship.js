@@ -55,7 +55,7 @@
 		}
 		
 		// Health is set to 3 to start, each hit removes 1 hp
-		self.health = 1;
+		self.health = 3;
 		
 		var createParticle = function(x, y){
 			self.assetList.add(new Particle({
@@ -225,13 +225,12 @@
 			var x = self.x;
 			var y = self.y;
 			
-			ctx.drawImage(SHIP_SPRITE, x-21, y-1);
-			
 			ctx.lineWidth = 1;
 			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
 			ctx.fillStyle = 'rgba(0, 0, 0, 1)';
 			
 			self.drawCannon(ctx);
+			ctx.drawImage(SHIP_SPRITE, x-21, y-1);
 			self.drawRoter(ctx);
 		}
 		

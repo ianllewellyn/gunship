@@ -33,7 +33,7 @@ Pause and resume with [p].
 * Game: Wind that blows from the sides of the screen to move things round
 
 * Game: Remove the frame graph
-* Game: Restore ship to 3 hit points
+* Game: Make sure ship has 3 health
 
 ### nice to have
 
