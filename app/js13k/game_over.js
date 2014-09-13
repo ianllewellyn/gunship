@@ -14,13 +14,13 @@
 		self.position = 0;
 		
 		//HACK
-		self.y = (self.bounds.bottom/2-70) - (50 - (self.position*50));
+		self.y = (self.bounds.bottom/2-120) - (50 - (self.position*50));
 		
 		self.update = function(frameTime, delta){
 			if(self.position < 1){
 				self._framesPassed += frameTime;
 				self.position = Math.min(1, (1/500)*self._framesPassed);
-				self.y = (self.bounds.bottom/2-70) - (50 - (self.position*50));
+				self.y = (self.bounds.bottom/2-120) - (50 - (self.position*50));
 			}
 		}
 		
