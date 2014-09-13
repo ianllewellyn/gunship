@@ -7,7 +7,8 @@
 		self.x = options.x;
 		self.y = options.y;
 		self.bounds = options.bounds;
-		self.speed = options.speed || 2;
+		self.speed = options.speed || 1.5;
+		
 		self.escaped = options.escaped;
 		self.health = self.originalHealth = options.health || 1;
 		
