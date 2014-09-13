@@ -16,6 +16,25 @@
 		self._powerupChain = 0;
 		self.increasePowerup = options.increasePowerup;
 		
+		self._previousHighScore = 0;
+		
+		// Load highscore from local storage
+		var storedData = localStorage.getItem('gunship');
+		if(storedData){
+			self._previousHighScore = (JSON.parse(storedData)).score;
+		}
+		
+		// Save the current score to storage if it's higher than the
+		// previous high score
+		self.save = function(){
+			if(self.score() > self._previousHighScore){
+				localStorage.setItem('gunship', JSON.stringify({
+					date: (new Date()).getTime(),
+					score: self.score()
+				}));
+			}
+		}
+		
 		// Get the multiplier
 		self.multiplier = function(){
 			return self._multiplier;
@@ -24,6 +43,9 @@
 		// Get the score
 		self.score = function(){
 			return self._points;
+		}
+		self.highScore = function(){
+			return self._previousHighScore;
 		}
 		
 		// Reset the miltiplier

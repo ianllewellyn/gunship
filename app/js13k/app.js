@@ -84,6 +84,8 @@
 	// each frame.
 	var setupGameAssets = function(assets){
 		
+		enemyTime = 0;
+		
 		// Set the initial possible enemy type including the
 		// first enemy only
 		_enemyTypes = [_allEnemyTypes[0]];
@@ -144,7 +146,7 @@
 		if(_gameOver){
 			if(Input.restart()){
 				_gameOver = false;
-				game.start();
+				game.run();
 			}
 			return;
 		}
@@ -242,6 +244,9 @@
 		
 		// Destroy the ship
 		ship.destroy();
+		
+		// Save the score
+		scoreModel.save();
 		
 		// Show Game Over
 		game.assets.add(new GameOver({

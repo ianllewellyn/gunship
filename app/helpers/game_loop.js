@@ -74,6 +74,8 @@
 				
 				self._running = true;
 				self._queueUpdate();
+			}else{
+				self.setupGameAssets(self.assets);
 			}
 		}
 		

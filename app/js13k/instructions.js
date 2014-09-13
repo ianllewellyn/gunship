@@ -48,31 +48,14 @@
 			
 			ctx.font = '36px Arial';
 			ctx.textAlign = 'center';
-			self.drawLine(ctx, 'Gunship13k', x, y);
+			drawTextLine(ctx, 'Gunship13k', x, y);
 			
-			self.drawPara(ctx, CONTROLS, x, y+50);
-			self.drawPara(ctx, GAME, x, y+190);
+			drawParagraph(ctx, CONTROLS, x, y+50);
+			drawParagraph(ctx, GAME, x, y+190);
 			
 			ctx.textAlign = 'center';
 			ctx.font = '18px Arial';
-			self.drawLine(ctx, self.message, x, y+450);
-		}
-		
-		self.drawPara = function(ctx, para, x, y){
-			ctx.textAlign = 'left';
-			ctx.font = '18px Arial';
-			self.drawLine(ctx, para[0], x-220, y);
-			
-			y += 10;
-			ctx.font = '14px Arial';
-			for(var i=1; i<para.length; ++i){
-				self.drawLine(ctx, para[i], x-200, y+(20*i));
-			}
-		}
-		
-		self.drawLine = function(ctx, text, x, y){
-			ctx.fillStyle = 'rgba(255, 255, 255, 1)';
-			ctx.fillText(text, x, y);
+			drawTextLine(ctx, self.message, x, y+450);
 		}
 	};
 })();

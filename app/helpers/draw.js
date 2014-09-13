@@ -59,4 +59,32 @@
 		}
 		ctx.stroke();
 	}
+	
+	// Draw a line of text
+	window.drawTextLine = function(ctx, text, x, y){
+		ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+		ctx.fillText(text, x, y);
+	}
+	
+	// Draw a paragraph of text
+	window.drawParagraph = function(ctx, para, x, y, textAlign){
+		if(textAlign == undefined) textAlign = 'left';
+		var headingX = x;
+		switch(textAlign){
+			case 'left' :
+				x -= 200;
+				headingX = x - 20;
+				break;
+		}
+		
+		ctx.textAlign = textAlign
+		ctx.font = '18px Arial';
+		drawTextLine(ctx, para[0], headingX, y);
+		
+		y += 10;
+		ctx.font = '14px Arial';
+		for(var i=1; i<para.length; ++i){
+			drawTextLine(ctx, para[i], x, y+(20*i));
+		}
+	}
 })();
