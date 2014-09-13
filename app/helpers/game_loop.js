@@ -1,6 +1,13 @@
 (function(){
 	
 	var TARGET_DELTA = 60/1000;
+	var getTime = function(){
+		if(window.performance){
+			return performance.now();
+		}else{
+			return (new Date()).getTime();
+		}
+	}
 	
 	// A collection for managing assets in the game loop.
 	var AssetList = function(){
@@ -53,7 +60,7 @@
 		self._running = false;
 		self.paused = false;
 		
-		self._lastUpdate = performance.now();
+		self._lastUpdate = getTime();
 		
 		// Start the game loop
 		// Initialize the game and queue an update to start the loop
@@ -96,7 +103,7 @@
 		
 		// Update game logic
 		self._update = function(){
-			var now = performance.now();
+			var now = getTime();
 			var frameTime = now - self._lastUpdate;
 			var delta = TARGET_DELTA * frameTime;
 			self._lastUpdate = now;

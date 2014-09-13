@@ -1,6 +1,6 @@
 # Gunship13k
 
-## Game play
+## Gameplay
 
 Shoot enemies to score points.
 
