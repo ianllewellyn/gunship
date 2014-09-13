@@ -9,7 +9,31 @@
 		self.bounds = options.bounds;
 		self.speed = options.speed || 2;
 		self.escaped = options.escaped;
-		self.health = options.health || 1;
+		self.health = self.originalHealth = options.health || 1;
+		
+		var color;
+		switch(self.health){
+			case 2 :
+				// Green
+				color = [0, 255, 0];
+				break;
+			case 3 :
+				// Blue
+				color = [117, 223, 255];
+				break;
+			case 4 :
+				// Purple
+				color = [186, 66, 186];
+				break;
+			case 5 :
+				// Red
+				color = [255, 43, 43];
+				break;
+			default :
+				color = [255, 255, 255];
+		}
+		self.color = color;
+		self.colorRGBA = 'rgba('+color[0]+', '+color[1]+', '+color[2]+', 1)'
 		
 		self.update = function(frameTime, delta){
 			var bounds = self.bounds;
@@ -25,19 +49,15 @@
 		}
 		
 		self.draw = function(ctx){
-			ctx.lineWidth = 1;
-			ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-			
-			// Draw another layer/circle for each health point
-			for(var i=0; i<self.health; ++i){
-				drawCircle(ctx, self.x, self.y, 10+(i*5));
-			}
+			ctx.lineWidth = self.health;
+			ctx.strokeStyle = self.colorRGBA;
+			drawCircle(ctx, self.x, self.y, (12-self.originalHealth)+self.health);
 		}
 		
 		// Rect is based on health - the more health layers we have
 		// the bigger the hit area.
 		self.getRect = function(){
-			var radius = 10 + (5 * self.health);
+			var radius = (12 - self.originalHealth) + (self.health*2);
 			return {
 				top: self.y - radius,
 				right: self.x + radius,
@@ -80,7 +100,8 @@
 					speedVariation: 2.5,
 					angle: options.angle,
 					angleVariation: options.angleVariation,
-					bounds: self.bounds
+					bounds: self.bounds,
+					color: self.color
 					,life: 500
 				}));
 			}

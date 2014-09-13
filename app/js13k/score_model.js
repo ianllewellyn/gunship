@@ -99,7 +99,7 @@
 			// callback to award an upgrade. Powerup chain is
 			// reset each time an enemy escapes but already awarded
 			// powerups stay.
-			if(++self._powerupChain == 20){
+			if(++self._powerupChain == 12){
 				self._powerupChain = 0;
 				++self._powerupLevel;
 				if(self.increasePowerup)

@@ -97,6 +97,7 @@
 		// first enemy only
 		_enemyTypes = [_allEnemyTypes[0]];
 		_enemiesKilled = _enemiesEscaped = 0;
+		difficultyMultiplier = 1;
 		
 		scoreModel = new ScoreModel({
 			
