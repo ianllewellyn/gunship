@@ -166,7 +166,7 @@
 		// Spawn enemies as time passes
 		enemyTime += frameTime;
 		if(enemyTime > (nextEnemyTime)){
-			enemyTime -= nextEnemyTime;
+			enemyTime = 0;
 			
 			// Calculate the number of ms until we spawn another enemy
 			nextEnemyTime = SPAWN_TIME * difficultyMultiplier;
