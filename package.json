@@ -1,6 +1,6 @@
 {
 	"name": "gunship",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "",
 	"author": "ianllewellyn",
 	"homepage": "http://www.ianllewellyn.com",
@@ -13,7 +13,7 @@
 	{
 		"start": "brunch watch --server",
 		"build": "brunch build",
-		"release": "brunch build --production && zip -g -v js13k.zip public/*"
+		"release": "rm -r public/ && brunch build --production && zip -g -v gunship13k.zip public/*"
 	},
 	"dependencies":
 	{

@@ -14,7 +14,7 @@
 		'Chain kills to increase your multiplier and power up your cannon.',
 		'If an enemy gets past you, the score multiplier is reset!',
 		'Hitting an enemy with your ship will trigger an explosion and',
-		'kill all everything.',
+		'kill all enemies.',
 		'But if you get hit three times it\'s Game Over!'
 	];
 	
